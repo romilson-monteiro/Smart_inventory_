@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Categorias - Smart Inventory</title>
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <link rel="stylesheet" href="../CSS/forms.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="left_container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../img/logo.png" alt="Logo">
+                <span class="title">Smart Inventory</span>
+            </div>
+            <ul class="menu">
+                <span class="menu-title">Main Menu</span>
+                <li class="menu_buttons " id="li_dashboard"><a href="dashboard.html"><i
+                            class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="menu_buttons" id="li_users"><a href="users.html"><i class="fas fa-user"></i> utilizadores</a>
+                </li>
+                <li class="menu_buttons " id="li_assets"><a href="assets.html"><i class="fas fa-box"></i>
+                        Ativos </a></li>
+                <li class="menu_buttons ativo" id="li_categories"><a href="categories.html"><i class="fas fa-boxes"></i>
+                        Categorias</a></li>
+
+                <li class="menu_buttons" id="li_movements"><a href="movements.html"><i class="fas fa-exchange-alt"></i>
+                        Movimentos</a></li>
+                <li class="menu_buttons" id="li_locations"><a href="location.html"><i class="fas fa-map-marker"></i>
+                        Localizações</a>
+                <li class="menu_buttons" id="li_reports"><a href="reports.html"><i class="fas fa-chart-line"></i>
+                        Relatórios</a></li>
+                <li class="menu_buttons" id="li_notifications"><a href="notifications.html"><i class="fas fa-bell"></i>
+                        Notificações</a></li>
+
+            </ul>
+
+
+
+            <div class="sidebar-footer">
+                <button class="logout-button" id="logout-button">Logout <i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </aside>
+    </div>
+
+    <div class="right_container">
+        <header>
+            <div class="header">
+                <h1 class="title">Dashboard > Categorias</h1>
+                <div class="user-profile">
+                    <div class="right-header-buttons">
+                        <button class="console.log-button"><i class="fas fa-bell"></i></button>
+                        <button class="setting-button"><i class="fas fa-cog"></i></button>
+                    </div>
+                    <img class="user-avatar" src="../img/perfil.jpg" alt="User Avatar">
+                    <span class="user-name">John Doe</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="table_container">
+                <div class="table_header">
+                    <h1>Grupos de Categorias</h1>
+                    <button id="create_category_group_button" class="button">Criar Grupo de Categoria</button>
+                </div>
+                <div class="container">
+                    <table id="category_groups_table" class="table_body">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="category_groups_table_body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="table_container">
+                <div class="table_header">
+                    <h1>Categorias</h1>
+                    <button id="create_category_button" class="button">Criar Categoria</button>
+                </div>
+                <div class="container">
+                    <table id="categories_table" class="table_body">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Grupo de Categoria</th>
+                                <th>Descrição</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categories_table_body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="new_form" id="category_group_form" data-edit-mode="false" style="display: none;">
+        <h2 class="form_h2">Adicionar/Editar Grupo de Categoria</h2>
+        <form>
+            <div class="form-group">
+                <label for="category_group_name">Nome:</label>
+                <input type="text" id="category_group_name" required>
+            </div>
+            <div class="button-container">
+                <button class="form_button_cancel" id="cancel_category_group_button">Cancel</button>
+                <button class="form_button_add" id="save_category_group_button">Salvar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="new_form" id="category_form" data-edit-mode="false" style="display: none;">
+        <h2 class="form_h2">Adicionar/Editar Categoria</h2>
+        <form>
+            <div class="form-group">
+                <label for="category_name">Nome:</label>
+                <input type="text" id="category_name" required>
+            </div>
+            <div class="form-group">
+                <label for="category_group_select">Grupo de Categoria:</label>
+                <select id="category_group_select" required></select>
+            </div>
+            <div class="form-group">
+                <label for="category_description">Descrição:</label>
+                <textarea id="category_description" required></textarea>
+            </div>
+            <div class="button-container">
+                <button class="form_button_cancel" id="cancel_category_button">Cancel</button>
+                <button class="form_button_add" id="save_category_button">Salvar</button>
+            </div>
+        </form>
+    </div>
+
+  
+</body>
+<script type="module" src="../JS/categories.js"></script>
+<script type="module" src="../JS/geral.js"></script>
+
+</html>

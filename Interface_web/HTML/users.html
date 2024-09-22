@@ -1,0 +1,276 @@
+<!-- 
+Tema:
+SMART-INVENTORY: Desenvolvimento de uma prova de conceito para inventariação automática de bens materiais em organizações.
+
+Resumo:
+O projeto proposto visa desenvolver um sistema de inventariação automática para bens materiais em organizações, recorrendo a tecnologias e técnicas tais como visão por computador ou identificação por radiofrequência. Pretende-se que o sistema seja capaz de identificar, rastrear e gerir os ativos físicos de uma organização de forma eficiente e automatizada, proporcionando maior controlo e precisão no processo de inventariação.
+
+Atividades:
+1) Elaborar o estado da arte em soluções de detecção e rastreio de bens materiais, baseados em tecnologias visão por computador (OpenCV) e radiofrequência (UHF-RFID);
+2) Conceptualização da arquitetura de sistema e identificação de tecnologias tendo em conta o caso de uso em análise;
+3) Desenvolvimento de implementação de uma prova de conceito que permita a identificação do movimento de bens e respetiva inventariação em tempo real;
+4) Avaliação da eficiência e precisão das tecnologias identificadas e utilizadas na prova de conceito.
+5) Preparação e submissão de um artigo técnico-científico em congresso da especialidade."    
+
+Orientação da componente de desenvolvimento de Hardware e Integração com Backend (API):
+ - Sérgio Ivan Lopes (ADiT-Lab/IPVC)
+ - Emanuel Lomba (CiTin, ADiT-Lab/IPVC)
+
+Orientação da componente de desenvolvimento de Software/APP e integração com Frontend:
+ - Sara Paiva (ADiT-Lab/IPVC)
+ - Rolando Azevedo (CiTin)  
+
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Inventory Dashboard</title>
+    <link rel="stylesheet" href="../CSS/forms.css">
+    <link rel="stylesheet" href="../CSS/styles.css">
+<script type="module" src="../JS/geral.js"></script>
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+
+
+<body>
+    <div class="left_container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../img/logo.png" alt="Logo">
+                <span class="title">Smart Inventory</span>
+            </div>
+            <ul class="menu">
+                <span class="menu-title">Main Menu</span>
+                <li class="menu_buttons " id="li_dashboard"><a href="dashboard.html"><i
+                            class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="menu_buttons ativo" id="li_users"><a href="users.html"><i class="fas fa-user"></i> utilizadores</a>
+                </li>
+                <li class="menu_buttons " id="li_assets"><a href="assets.html"><i class="fas fa-box"></i>
+                        Ativos </a></li>
+                <li class="menu_buttons" id="li_categories"><a href="categories.html"><i class="fas fa-boxes"></i>
+                        Categorias</a></li>
+
+                <li class="menu_buttons" id="li_movements"><a href="movements.html"><i class="fas fa-exchange-alt"></i>
+                        Movimentos</a></li>
+                <li class="menu_buttons" id="li_locations"><a href="location.html"><i class="fas fa-map-marker"></i>
+                        Localizações</a>
+                <li class="menu_buttons" id="li_reports"><a href="reports.html"><i class="fas fa-chart-line"></i>
+                        Relatórios</a></li>
+                <li class="menu_buttons" id="li_notifications"><a href="notifications.html"><i class="fas fa-bell"></i>
+                        Notificações</a></li>
+
+            </ul>
+
+
+
+            <div class="sidebar-footer">
+                <button class="logout-button" id="logout-button">Logout <i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </aside>
+    </div>
+
+
+    <div class="right_container">
+
+
+
+
+
+        <header>
+            <div class="header">
+                <h1 class="title"> Dashboard</h1>
+                <div class="user-profile">
+                    <div class="right-header-buttons">
+                        <button class="alert-button"><i class="fas fa-bell"></i></button>
+                        <button class="setting-button"><i class="fas fa-cog"></i></button>
+                    </div>
+
+                    <img class="user-avatar" src="../img/perfil.jpg" alt="User Avatar">
+                    <span class="user-name">John Doe</span>
+                </div>
+
+
+
+            </div>
+        </header>
+
+        <main>
+            <section class="welcome-section">
+
+                <h1>Olá, bem-vindo de volta, John Doe</h1>
+                <p>Segunda-feira, 20 de setembro de 2021, 10:30</p>
+
+                <script>
+                    const welcomeSection = document.querySelector('.welcome-section');
+                    const date = new Date();
+                    const days = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+                    const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+                    const day = days[date.getDay()];
+                    const month = months[date.getMonth()];
+                    const hours = date.getHours();
+                    const minutes = date.getMinutes();
+                    welcomeSection.querySelector('p').textContent = `${day}, ${date.getDate()} de ${month} de ${date.getFullYear()}, ${hours}:${minutes}`;
+                </script>
+
+
+
+            </section>
+
+
+
+            <main>
+
+
+                <div class="table_container">
+                    <div class="table_header">
+                        <h1>Utilizadores</h1>
+                        <button id="create_user_button" class="button">Creat new user</button>
+                    </div>
+                    <div class="container">
+                        <div class="search">
+                            <input type="text" id="search" placeholder="Search">
+                            <button id="search_button">Procurar</button>
+                        </div>
+                        <span id="searchResult">
+                            <span id="search_title">Resultados da pesquisa em : </span>
+                            <button id="close_search_result"> Ver todos</button>
+                        </span>
+
+
+                        <table id="users_table" class="table_body">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Role</th>
+                                    <th>LastLocation</th>
+                                    <th>LastUpdate</th> 
+                                    <th>Actions</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="users_table_body">
+                               
+
+                            
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+            </main>
+
+    </div>
+
+
+
+
+
+    <div class="new_form" userId="" data-edit-mode="false" style="display: none">
+        
+      
+        <div class="form-header">
+            <h2 class="form_h2" id="title_add_edit_user_form">Add a New User  </h2>
+            <div class="id_container">
+                <label for="id">Id:</label>
+                <input type="text" id="edit_user_id" disabled>
+            </div>
+
+        </div>
+
+        <form enctype="multipart/form-data">
+          
+
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="new_user_name" required>
+
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="new_user_email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="permissions">Phone number:</label>
+                <input type="number" id="new_user_phone_number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select id="new_user_role" required class="form-control">
+                    <option value="">Selecione o papel do utilizador</option>
+                    <option value="super_admin">Super Admin</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="new_user_username" required>
+            </div>
+
+            <div class="form-group ">
+                <label for="new_user_password">Password:</label>
+                <div class="password-group">
+                    <input type="password" autofocus  placeholder="Password" id="new_user_password" required>
+                    
+                    <button type="button" id="generate_password_button"><i class="fas fa-key"></i></button>
+                    <button type="button" id="toggle_password_visibility"><i class="fas fa-eye"></i></button>
+                </div>
+            </div>
+        </form>
+        <div class="button-container">
+            <button class="form_button_cancel" id="cancel_user_button">Cancel</button>
+            <button class="form_button_add" id="add_new_user_button">Add User</button>
+        </div>
+
+   
+    </div>
+
+
+
+
+
+
+</body>
+
+<div class="delete_form">
+    <p>Are you sure you want to delete this user?</p>
+    <div class="delete_form_buttons">
+        <button id="cancel_btn">Cancel</button>
+        <button id="confirm_btn">Confirm</button>
+    </div>
+</div>
+
+<script type="module" src="../JS/user.js">
+    
+    
+</script>
+
+
+
+
+
+
+
+
+
+</html>

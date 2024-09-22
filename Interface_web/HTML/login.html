@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  Login Page - Smart_Inventory</title>
+    <link rel="stylesheet" href="../CSS/login.css" />
+   
+</head>
+<body>
+   
+    
+    <main>
+        <div class="left_container">   
+          <div>
+            <img src="../img/inventor.png" alt="Smart-inventory" class="right-image">
+          </div>
+        </div>
+        <div class="right_container">
+            <div class="header">
+                <img src="../img/logo.png" alt="Logo" class="app-logo">
+                <h1 class="title">Smart-inventory </h1>
+            </div>
+            <div class="form">
+                <h1 class="form_title">Login</h1>
+            <form >
+              
+                <div class="form_message form-error"></div>
+                <div class="form_input_group">
+                  <input
+                    type="text"
+                    class="from_input"
+                    autofocus
+                    placeholder="Nome de utilizador ou email"
+                    id="username"
+                  />
+                  <div class="form_input-error-message"></div>
+                </div>
+                <div class="form_input_group">
+                  <input
+                    type="password"
+                    class="from_input"
+                    autofocus
+                    placeholder="Password"
+                    id="password"
+                  />
+                </div>
+              </form>
+                <button class="form_button" id="btnLogin"  >loginn</button>
+                <p class="form_text">
+                  <a href="#" class="form_link">Recuperar Senha</a>
+                </p> 
+               </div>
+        </div>
+    </main>
+    <script type="module" src="../JS/login.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+Tema:
+SMART-INVENTORY: Desenvolvimento de uma prova de conceito para inventariação automática de bens materiais em organizações.
+
+Resumo:
+O projeto proposto visa desenvolver um sistema de inventariação automática para bens materiais em organizações, recorrendo a tecnologias e técnicas tais como visão por computador  Pretende-se que o sistema seja capaz de identificar, rastrear e gerir os ativos físicos de uma organização de forma eficiente e automatizada, proporcionando maior controlo e precisão no processo de inventariação.
+
+Atividades:
+1) Elaborar o estado da arte em soluções de detecção e rastreio de bens materiais, baseados em tecnologias visão por computador (OpenCV)  
+2) Conceptualização da arquitetura de sistema e identificação de tecnologias tendo em conta o caso de uso em análise;
+3) Desenvolvimento de implementação de uma prova de conceito que permita a identificação do movimento de bens e respetiva inventariação em tempo real;
+4) Avaliação da eficiência e precisão das tecnologias identificadas e utilizadas na prova de conceito.
+5) Preparação e submissão de um artigo técnico-científico em congresso da especialidade."    
+
+Orientação da componente de desenvolvimento de Hardware e Integração com Backend (API):
+ - Sérgio Ivan Lopes (ADiT-Lab/IPVC)
+ - Emanuel Lomba (CiTin, ADiT-Lab/IPVC)
+
+Orientação da componente de desenvolvimento de Software/APP e integração com Frontend:
+ - Sara Paiva (ADiT-Lab/IPVC)
+ - Rolando Azevedo (CiTin)  
+
+ -->
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ativos - Smart Inventory Dashboard</title>
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <link rel="stylesheet" href="../CSS/forms.css">
+    <script type="module" src="../JS/geral.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+
+
+<body>
+    <div class="left_container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../img/logo.png" alt="Logo">
+                <span class="title">Smart Inventory</span>
+            </div>
+            <ul class="menu">
+                <span class="menu-title">Main Menu</span>
+                <li class="menu_buttons " id="li_dashboard"><a href="dashboard.html"><i
+                            class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="menu_buttons" id="li_users"><a href="users.html"><i class="fas fa-user"></i> utilizadores</a>
+                </li>
+                <li class="menu_buttons " id="li_assets"><a href="assets.html"><i class="fas fa-box"></i>
+                        Ativos </a></li>
+                <li class="menu_buttons" id="li_categories"><a href="categories.html"><i class="fas fa-boxes"></i>
+                        Categorias</a></li>
+
+                <li class="menu_buttons ativo" id="li_movements"><a href="movements.html"><i class="fas fa-exchange-alt"></i>
+                        Movimentos</a></li>
+                <li class="menu_buttons" id="li_locations"><a href="location.html"><i class="fas fa-map-marker"></i>
+                        Localizações</a>
+                <li class="menu_buttons" id="li_reports"><a href="reports.html"><i class="fas fa-chart-line"></i>
+                        Relatórios</a></li>
+                <li class="menu_buttons" id="li_notifications"><a href="notifications.html"><i class="fas fa-bell"></i>
+                        Notificações</a></li>
+
+            </ul>
+
+
+
+            <div class="sidebar-footer">
+                <button class="logout-button" id="logout-button">Logout <i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </aside>
+    </div>
+
+
+    <div class="right_container">
+
+
+
+    <header>
+        <div class="header">
+            <h1 class="title"> Dashboard > Movimentos</h1>
+            <div class="user-profile">
+                <div class="right-header-buttons">
+                    <button class="alert-button"><i class="fas fa-bell"></i></button>
+                    <button class="setting-button"><i class="fas fa-cog"></i></button>
+                </div>
+
+                <img class="user-avatar" src="../img/perfil.jpg" alt="User Avatar">
+                <span class="user-name">John Doe</span>
+            </div>
+        </div>
+    </header>
+
+<main>
+ 
+
+    <section class="welcome-section">
+
+        <h1>Olá, bem-vindo de volta, John Doe</h1>
+        <p>Segunda-feira, 20 de setembro de 2021, 10:30</p>
+
+
+
+
+    </section>
+
+
+
+
+
+        <main>
+           
+          
+            <div class="table_container">
+                <div class="table_header">
+                    <h1>Movimentos</h1>
+                </div>
+                <div class="container">
+                    <div class="search">
+                        <input type="text" id="search" placeholder="Search">
+                        <button id="search_button">Procurar</button>
+                    </div>
+                    
+                    <table id="assets_movements_table" class="table_body">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>ID Ativo</th>
+                                <th>Nome Ativo</th>
+                                <th>Origem</th>
+                                <th>Destino</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assets_movements_table_body">
+                                                    
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+        </main>
+
+    </div>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="module" src="../JS/geral.js"></script>
+<script type="module" src="../JS/movements.js"></script>
+
+
+
+</html>

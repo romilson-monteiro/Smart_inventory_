@@ -1,0 +1,235 @@
+    
+        /* core styles laranja preto e branco*/
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .app-logo {
+            width: 100px;
+            height: auto;
+        }
+
+        .title {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .left_container {
+            height: 100vh;
+            width: 45%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-right: 1px solid #d7d5d3;
+        }
+
+        .left_container img {
+            width: 100%;
+            height: auto;
+
+        }
+
+
+        .right_container {
+            height: 100vh;
+            width: 55%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #f4f4f4;
+        }
+
+        .right-image {
+            width: 80%;
+            height: auto;
+
+        }
+
+        .form {
+            width: 80%;
+            max-width: 400px;
+            padding: 5%;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+       
+
+        .form_title {
+
+            font-size: 24px;
+            color: #333;
+            align-items: center;
+        }
+
+        .form_message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .form_message p {
+            margin: 0;
+        }
+
+        .form_message p:first-child {
+            margin-bottom: 5px;
+        }
+
+        .form_message p:last-child {
+            font-size: 14px;
+        }
+        
+        .form_message p:first-child {
+            margin-bottom: 5px;
+        }
+
+        .form_message p:last-child {
+            font-size: 14px;
+        }
+
+        
+
+        .form_message.form-error {
+            background-color: #ff0033;
+        }
+
+        .form_message.form-success {
+            background-color: #00ff00;
+        }
+
+        .form_input_group {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+       
+
+        .from_input {
+            width: 95%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #d7d5d3;
+            font-size: 16px;
+        }
+
+        .form_button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ff7f00;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form_button:active {
+            background-color: #ff9d00;
+        }
+
+        .form_button:focus {
+            outline: none;
+        }
+
+
+        .form_button:hover {
+            background-color: #ff9d00;
+        }
+
+        .form_text {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .form_link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .form_link:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilos específicos para telas menores (celulares) */
+
+    
+
+
+
+
+       
+       
+       
+        /* Estilos específicos para telas menores (tablets e smartphones) */
+
+        @media (max-width: 768px) {
+          main {
+              flex-direction: column;
+          }
+
+          .left_container {
+             display: none;
+          }
+
+          .right_container {
+              width: 100%;
+              height: 0%;
+          }
+
+          .right-image {
+              display: none;
+          }
+      }
+
+      @media (max-width: 425px) {
+          .form {
+              margin: 10px;
+          }
+
+          .form_title {
+              font-size: 20px;
+          }
+
+          .from_input {
+              font-size: 14px;
+          }
+
+          .form_button {
+              font-size: 14px;
+          }
+
+          .form_text {
+              font-size: 12px;
+          }
+      }
+
+
+
+
+  
+

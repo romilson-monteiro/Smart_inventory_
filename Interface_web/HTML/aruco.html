@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ativos - Smart Inventory Dashboard</title>
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <link rel="stylesheet" href="../CSS/forms.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/3.0.7/canvg.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+
+<body>
+    <div class="left_container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../img/logo.png" alt="Logo">
+                <span class="title">Smart Inventory</span>
+            </div>
+            <ul class="menu">
+                <span class="menu-title">Main Menu</span>
+                <li class="menu_buttons " id="li_dashboard"><a href="dashboard.html"><i
+                            class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="menu_buttons" id="li_users"><a href="users.html"><i class="fas fa-user"></i> utilizadores</a>
+                </li>
+                <li class="menu_buttons ativo" id="li_assets"><a href="assets.html"><i class="fas fa-box"></i>
+                        Ativos </a></li>
+                <li class="menu_buttons" id="li_categories"><a href="categories.html"><i class="fas fa-boxes"></i>
+                        Categorias</a></li>
+
+                <li class="menu_buttons" id="li_movements"><a href="movements.html"><i class="fas fa-exchange-alt"></i>
+                        Movimentos</a></li>
+                <li class="menu_buttons" id="li_locations"><a href="location.html"><i class="fas fa-map-marker"></i>
+                        Localizações</a>
+                <li class="menu_buttons" id="li_reports"><a href="reports.html"><i class="fas fa-chart-line"></i>
+                        Relatórios</a></li>
+                <li class="menu_buttons" id="li_notifications"><a href="notifications.html"><i class="fas fa-bell"></i>
+                        Notificações</a></li>
+
+            </ul>
+
+
+
+            <div class="sidebar-footer">
+                <button class="logout-button" id="logout-button">Logout <i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </aside>
+    </div>
+
+
+    <div class="right_container">
+
+
+
+        <header>
+            <div class="header">
+                <h1 class="title"> Ativos</h1>
+                <div class="user-profile">
+                    <div class="right-header-buttons">
+                        <button class="console.log-button"><i class="fas fa-bell"></i></button>
+                        <button class="setting-button"><i class="fas fa-cog"></i></button>
+                    </div>
+
+                    <img class="user-avatar" src="../img/perfil.jpg" alt="User Avatar">
+                    <span class="user-name">John Doe</span>
+                </div>
+
+
+
+            </div>
+        </header>
+
+        <main>
+
+
+         
+
+            <style>
+                /* Adicione ou ajuste o CSS necessário */
+
+
+                .container_aruco {
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                .aruco-left {
+                    width: 40%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    border-right: 1px solid #f0f0f0;
+                    background-color: #f9f9f9;
+
+
+                }
+
+                .aruco-right {
+                    width: 60%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 20px;
+
+                }
+
+                .setup .field {
+                    margin-bottom: 10px;
+                }
+
+                .setup .field label {
+                    display: block;
+                    margin-bottom: 5px;
+                }
+
+                .setup .field input,
+                .setup .field select {
+                    width: 100%;
+                    padding: 7px;
+                    border: 1px solid #9b9a9a;
+                    border-radius: 5px;
+                }
+
+                .save-tools {
+                    width: 70%;
+
+                    display: flex;
+                   justify-content: space-between;
+                    flex-direction: column;
+
+                    margin-top: 20px;
+                }
+                .save-button {
+                    width: 50%;
+                    padding: 10px 20px;
+                    background-color: #ff7b00;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-left: 10px;
+                }
+
+                .save-button:hover {
+                    background-color: #ff8c3d;
+                }
+
+                .download-options {
+                    display: flex;
+
+                    flex-direction: row;
+                    justify-content: space-between;
+
+                    
+                }
+
+                .download-options select,
+                .download-options button {
+                    width: 50%;
+                    padding: 8px 12px;
+                    margin-top: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    background-color: #f0f0f0;
+                    cursor: pointer;
+                }
+                
+                .download-options button {
+                    background-color: #f89d00;
+                    color: #fff;
+                    border: none;
+                    transition: background-color 0.3s ease;
+                }
+
+
+                .marker-id {
+                    font-size: 24px;
+                    margin-bottom: 10px;
+                }
+
+                .marker svg {
+                    max-width: 100mm;
+                    max-height: 100mm;
+                }
+
+               
+
+                
+            </style>
+            <main>
+
+                <div class="table_container">
+
+                    <div class="container_aruco">
+                        <div class="aruco-left">
+                            <div class="table_header">
+                                <h1>Gerador de marcadores ArUco</h1>
+                            </div>
+
+                            <form class="setup">
+
+                                <div class="field">
+                                    <label for="frm-id">Marker ID:</label>
+                                    <select id="frm-id" name="id">
+                                      
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label for="frm-size">Marker size, mm:</label>
+                                    <input id="frm-size" name="size" type="number" min="10" max="5000" value="100">
+                                </div>
+                            </form>
+
+
+
+                            <div class="save-tools">
+
+                                <!-- select de diferentes opçoes de download como em pdf e em png etc -->
+
+                                <label for="download-options">Download as:</label>
+                                
+                                <div class="download-options">
+                                  
+                                    <select id="download-options">
+                                        <option value="svg">SVG</option>
+                                        <option value="pdf">PDF</option>
+                                        <option value="png">PNG</option>
+                                    </select>
+
+                                    <button class="save-button">Download</button>
+
+                                </div>
+                                
+
+
+
+
+
+
+
+
+
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="aruco-right">
+
+                            <div class="marker-id"></div>
+
+                            <div class="marker"></div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+            </main>
+
+    </div>
+
+</body>
+
+
+
+
+<script type="module" src="../JS/geral.js"></script>
+<script type="module" src="../JS/arucogen.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,86 @@
+.user-details-container {
+    margin: 50px auto;
+    background-color: #212e3b;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    text-align: start;
+}
+
+.user-details {
+    display: grid;
+    gap: 20px;
+}
+
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    margin: 0 auto 10px;
+    display: block;
+}
+
+.details {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr); /* Display two details per row */
+}
+
+.detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #3498db;
+    padding-bottom: 10px;
+}
+
+label {
+    font-weight: bold;
+    width: 120px;
+    margin-right: 10px;
+    color: #3498db;
+}
+
+span {
+    flex-grow: 1;
+    padding: 3px;
+    color: #ecf0f1;
+}
+
+/* Hover effect for details */
+.detail:hover {
+    background-color: #2c3e50;
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+
+.useracess-container {
+    margin: 50px auto;
+    background-color: #212e3b;
+    padding: 30px;
+
+ 
+}
+
+
+.accesses-title {
+    font-size: 28px;
+    color: #3498db;
+    margin-bottom: 15px;
+    text-align: start;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.accesses-title:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px; /* Adjust as needed */
+    height: 2px;
+    background-color: #3498db;
+}

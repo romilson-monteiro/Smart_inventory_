@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Localizações - Smart Inventory Dashboard</title>
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <link rel="stylesheet" href="../CSS/forms.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="left_container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../img/logo.png" alt="Logo">
+                <span class="title">Smart Inventory</span>
+            </div>
+            <ul class="menu">
+                <span class="menu-title">Main Menu</span>
+                <li class="menu_buttons " id="li_dashboard"><a href="dashboard.html"><i
+                            class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="menu_buttons" id="li_users"><a href="users.html"><i class="fas fa-user"></i> utilizadores</a>
+                </li>
+                <li class="menu_buttons " id="li_assets"><a href="assets.html"><i class="fas fa-box"></i>
+                        Ativos </a></li>
+                <li class="menu_buttons" id="li_categories"><a href="categories.html"><i class="fas fa-boxes"></i>
+                        Categorias</a></li>
+
+                <li class="menu_buttons" id="li_movements"><a href="movements.html"><i class="fas fa-exchange-alt"></i>
+                        Movimentos</a></li>
+                <li class="menu_buttons ativo" id="li_locations"><a href="location.html"><i class="fas fa-map-marker"></i>
+                        Localizações</a>
+                <li class="menu_buttons" id="li_reports"><a href="reports.html"><i class="fas fa-chart-line"></i>
+                        Relatórios</a></li>
+                <li class="menu_buttons" id="li_notifications"><a href="notifications.html"><i class="fas fa-bell"></i>
+                        Notificações</a></li>
+
+            </ul>
+
+
+
+            <div class="sidebar-footer">
+                <button class="logout-button" id="logout-button">Logout <i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </aside>
+    </div>
+
+    <div class="right_container">
+        <header>
+            <div class="header">
+                <h1 class="title">Dashboard > Localizações</h1>
+                <div class="user-profile">
+                    <div class="right-header-buttons">
+                        <button class="console.log-button"><i class="fas fa-bell"></i></button>
+                        <button class="setting-button"><i class="fas fa-cog"></i></button>
+                    </div>
+                    <img class="user-avatar" src="../img/perfil.jpg" alt="User Avatar">
+                    <span class="user-name">John Doe</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="table_container">
+                <div class="table_header">
+                    <h1>Localizações</h1>
+                    <button id="create_location_button" class="button">Criar Localização</button>
+                </div>
+                <div class="container">
+                    <div class="search">
+                        <input type="text" id="search" placeholder="Search">
+                        <button id="search_button">Procurar</button>
+                    </div>
+                    <span id="searchResult">
+                        <span id="search_title">Resultados da pesquisa em:</span>
+                        <button id="close_search_result" onclick="document.getElementById('searchResult').style.display = 'none'">Ver todos</button>
+                    </span>
+                    <table id="locations_table" class="table_body">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Piso</th>
+                                <th>Descrição</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="locations_table_body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="new_form" locationId="" data-edit-mode="false">
+        <h2 class="form_h2" id="title_add_edit_location_form">Adicionar Nova Localização</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" id="new_location_name" required>
+            </div>
+            <div class="form-group">
+                <label for="floor">Piso:</label>
+                <select id="new_location_floor" required class="form-control">
+                    <option value="">Selecione o Piso</option>
+                    <option value="0">Piso 0</option>
+                    <option value="1">Piso 1</option>
+                    <option value="2">Piso 2</option>
+                </select>
+            </div>
+           
+        </form>
+        <div class="button-container">
+            <button class="form_button_cancel" id="cancel_button">Cancelar</button>
+            <button class="form_button_add" id="add_new_location_button">Adicionar Localização</button>
+        </div>
+    </div>
+
+    <script type="module" src="../JS/location.js"></script>
+<script type="module" src="../JS/geral.js"></script>
+
+</body>
+
+
+
+</html>

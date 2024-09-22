@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Ativo - Smart Inventory Dashboard</title>
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <link rel="stylesheet" href="../CSS/forms.css">
+    <link rel="stylesheet" href="../CSS/assets-details.css"> <!-- Adicione um arquivo CSS específico para esta página -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="left_container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../img/logo.png" alt="Logo">
+                <span class="title">Smart Inventory</span>
+            </div>
+            <ul class="menu">
+                <span class="menu-title">Main Menu</span>
+                <li class="menu_buttons " id="li_dashboard"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="menu_buttons" id="li_users"><a href="users.html"><i class="fas fa-user"></i> Utilizadores</a></li>
+                <li class="menu_buttons" id="li_assets"><a href="assets.html"><i class="fas fa-box"></i> Ativos</a></li>
+                <li class="menu_buttons" id="li_categories"><a href="categories.html"><i class="fas fa-boxes"></i> Categorias</a></li>
+                <li class="menu_buttons" id="li_movements"><a href="movements.html"><i class="fas fa-exchange-alt"></i> Movimentos</a></li>
+                <li class="menu_buttons" id="li_locations"><a href="location.html"><i class="fas fa-map-marker"></i> Localizações</a></li>
+                <li class="menu_buttons" id="li_reports"><a href="reports.html"><i class="fas fa-chart-line"></i> Relatórios</a></li>
+                <li class="menu_buttons" id="li_notifications"><a href="notifications.html"><i class="fas fa-bell"></i> Notificações</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <button class="logout-button" id="logout-button">Logout <i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </aside>
+    </div>
+
+    <div class="right_container">
+        <header>
+            <div class="header">
+                <h1 class="title">Detalhes do Ativo</h1>
+                <div class="user-profile">
+                    <div class="right-header-buttons">
+                        <button class="alert-button"><i class="fas fa-bell"></i></button>
+                        <button class="setting-button"><i class="fas fa-cog"></i></button>
+                    </div>
+                    <img class="user-avatar" src="../img/perfil.jpg" alt="User Avatar">
+                    <span class="user-name">John Doe</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="asset-details">
+                <div class="details-header">
+                    <h2>Informações do Ativo</h2>
+                </div>
+                <div class="details-content">
+                    <div class="asset-info">
+                        <p><strong>ID:</strong> <span id="asset-id">12345</span></p>
+                        <p><strong>Nome:</strong> <span id="asset-name">Nome do Ativo</span></p>
+                        <p><strong>Serial:</strong> <span id="asset-serial">ABC123456</span></p>
+                        <p><strong>Categoria:</strong> <span id="asset-category">Categoria</span></p>
+                        <p><strong>Descrição:</strong> <span id="asset-description">Descrição detalhada do ativo</span></p>
+                        <p><strong>Localização:</strong> <span id="asset-location">Localização</span></p>
+                        <p><strong>Última Atualização (Localização):</strong> <span id="asset-location-last-update">12/12/2021 as 12:00</span></p>
+                       
+                    </div>
+                </div>
+            </section>
+
+            <section class="asset-movements">
+                <div class="movements-header">
+                    <h2>Histórico de Movimentações</h2>
+                </div>
+                <div class="movements-content">
+                    <table id="movements-table"  class="table_body">
+                        <thead>
+                            <tr>
+                                <th>ID Movimento</th>
+                                <th>Origem</th>
+                                <th>Destino</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody id="movements-table-body">
+                            <!-- Dados de movimentações serão inseridos aqui via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="../JS/geral.js"></script>
+    <script type="module" src="../JS/assets-details.js"></script>
+</body>
+<style>
+
+/* Seção de detalhes do ativo */
+.asset-details {
+    margin-bottom: 30px;
+}
+
+.details-header {
+    border-bottom: 3px solid #283c51;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 8px 8px 0 0;
+}
+
+.details-header h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #101921;
+}
+
+.details-content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.asset-info {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 15px;
+    font-size: 16px;
+}
+
+.asset-info p {
+    margin: 10px 0;
+}
+
+.asset-info strong {
+    color: #555;
+    font-weight: 600;
+}
+
+.asset-info span {
+    color: #000000;
+}
+
+
+</style>
+
+</html>

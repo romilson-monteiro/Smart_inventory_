@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Inventory Dashboard</title>
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+
+<style>
+    /* Cards Section Styling */
+    .cards-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        flex: 1;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        margin: 0 10px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card-icon {
+        background-color: #3498db;
+        border-radius: 50%;
+        padding: 10px;
+        color: #fff;
+        font-size: 2rem;
+        margin-right: 20px;
+    }
+
+    .card-info h2 {
+        font-size: 18px;
+        color: #3a3a3a;
+        margin-bottom: 5px;
+    }
+
+    .card-info p {
+        font-size: 24px;
+        color: #2c3e50;
+        font-weight: bold;
+    }
+
+
+
+
+
+
+
+    /* Charts Section Styling */
+    .charts-section {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .chart {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        height: 400px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        flex-basis: 45%;
+    }
+
+
+
+
+
+    /* Recent Movements Section Styling */
+    .recent-movements {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .recent-movements-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .recent-movements-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .button {
+        background-color: #3498db;
+        border: none;
+        color: #fff;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    .button:hover {
+        background-color: #2980b9;
+    }
+
+
+    .chart-container-movements {
+        margin-top: 20px;
+    }
+
+    /* Alerts and Notifications Section Styling */
+
+
+
+    .alerts-notifications,
+    .user-info,
+    .reports-insights {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    .alerts-notifications h2,
+    .user-info h2,
+    .reports-insights h2 {
+        font-size: 18px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    .alerts-notifications div,
+    .user-info div {
+        margin-bottom: 20px;
+    }
+
+
+    .alerts-notifications div h3,
+    .user-info div h3 {
+        font-size: 16px;
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+
+    .alerts-notifications {
+        margin-bottom: 20px;
+    }
+
+    .alerts-notifications div {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f2f2f2;
+        border-left: 4px solid #ffcc00;
+    }
+
+    .alerts-notifications div span {
+        color: #333;
+        font-size: 14px;
+        margin-right: 10px;
+    }
+
+    .alerts-notifications div span.message {
+        font-weight: bold;
+    }
+
+    .alerts-notifications div span.timestamp {
+        color: #666;
+        font-size: 12px;
+    }
+
+
+
+
+    /* Reports and Insights Section Styling */
+    .reports-insights {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .reports-insights h2 {
+        margin-bottom: 20px;
+    }
+
+    .reports-insights div {
+        padding: 10px;
+    }
+
+    /* Media Queries for Responsiveness */
+    @media (max-width: 768px) {
+        .left_container {
+            width: 100%;
+            height: auto;
+            position: relative;
+        }
+
+        .right_container {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        .cards-section {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .charts-section {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+</style>
+
+<body>
+    <div class="left_container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../img/logo.png" alt="Logo">
+                <span class="title">Smart Inventory</span>
+            </div>
+            <ul class="menu">
+                <span class="menu-title">Main Menu</span>
+                <li class="menu_buttons ativo" id="li_dashboard"><a href="dashboard.html"><i
+                            class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="menu_buttons" id="li_users"><a href="users.html"><i class="fas fa-user"></i> utilizadores</a>
+                </li>
+                <li class="menu_buttons " id="li_assets"><a href="assets.html"><i class="fas fa-box"></i>
+                        Ativos </a></li>
+                <li class="menu_buttons" id="li_categories"><a href="categories.html"><i class="fas fa-boxes"></i>
+                        Categorias</a></li>
+
+                <li class="menu_buttons" id="li_movements"><a href="movements.html"><i class="fas fa-exchange-alt"></i>
+                        Movimentos</a></li>
+                <li class="menu_buttons" id="li_locations"><a href="location.html"><i class="fas fa-map-marker"></i>
+                        Localizações</a>
+                <li class="menu_buttons" id="li_reports"><a href="reports.html"><i class="fas fa-chart-line"></i>
+                        Relatórios</a></li>
+                <li class="menu_buttons" id="li_notifications"><a href="notifications.html"><i class="fas fa-bell"></i>
+                        Notificações</a></li>
+
+            </ul>
+
+
+
+            <div class="sidebar-footer">
+                <button class="logout-button" id="logout-button">Logout <i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </aside>
+    </div>
+    <div class="right_container">
+        <header>
+            <div class="header">
+                <h1 class="title">Dashboard</h1>
+                <div class="user-profile">
+                    <div class="right-header-buttons">
+                        <button class="alert-button"><i class="fas fa-bell"></i></button>
+                        <button class="setting-button"><i class="fas fa-cog"></i></button>
+                    </div>
+                    <img class="user-avatar" src="../img/perfil.jpg" alt="User Avatar">
+                    <span class="user-name">John Doe</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Welcome section -->
+            <section class="welcome-section">
+                <h1>Olá, bem-vindo de volta, John Doe</h1>
+                <p id="currentDateTime">Carregando data e hora...</p>
+            </section>
+
+            <!-- Dashboard overview -->
+            <section class="cards-section">
+                <div class="card" id="totalUsersCard">
+                    <div class="card-icon gradient-bg">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-info">
+                        <h2>Utilizadores</h2>
+                        <p id="totalUsers">Carregando...</p>
+                    </div>
+                </div>
+                <div class="card" id="totalAssetsCard">
+                    <div class="card-icon gradient-bg">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="card-info">
+                        <h2>Total de Ativos</h2>
+                        <p id="totalAssets">Carregando...</p>
+                    </div>
+                </div>
+                <div class="card" id="totalMovementsCard">
+                    <div class="card-icon gradient-bg">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="card-info">
+                        <h2>Total de Movimentações</h2>
+                        <p id="totalMovements">Carregando...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assets summary -->
+            <section class="charts-section">
+                <div class="chart" id="movementsChart">
+
+                    <canvas id="assetsByLocationChart"></canvas>
+                </div>
+                <div class="chart" id="assetsDistributionChart">
+
+                    <canvas id="assetsByCategoryChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Recent movements -->
+            <section class="recent-movements">
+                <div class="recent-movements-header">
+                    <h1>Últimas movimentações</h1>
+                    <button id="verMais_button" class="button">Ver Mais</button>
+                </div>
+                <table id="lastMovementsTable" class="table_body">
+                    <thead>
+                        <tr>
+                            <th>Ativo</th>
+                            <th>Localização Anterior</th>
+                            <th>Localização Atual</th>
+                            <th>Data e Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados das movimentações serão inseridos dinamicamente -->
+                    </tbody>
+                </table>
+                <br>
+                <div class="chart-container-movements">
+
+                    <canvas id="dailyMovementsChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Alerts and notifications -->
+            <section class="alerts-notifications">
+                <h2>Alertas e Notificações</h2>
+
+                <div class="notification">
+                    <span class="message">Falha no sistema detectada, estamos investigando.</span>
+                    <span class="timestamp">7 de julho, 2024 - 10:00</span>
+                </div>
+
+                <div class="notification">
+                    <span class="message">Ativo ID: 12345 foi movido para Piso 2</span>
+                    <span class="timestamp">6 de julho, 2024 - 15:45</span>
+                </div>
+
+
+
+            </section>
+
+            
+            <section class="reports-insights">
+                <h2>Relatórios e Insights</h2>
+                <button class="button">Download Relatórios</button>
+
+
+            </section>
+       
+
+          
+        </main>
+    </div>
+    <script type="module" src="../JS/dashboard.js"></script>
+    <script type="module" src="../JS/geral.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ativos - Smart Inventory Dashboard</title>
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <link rel="stylesheet" href="../CSS/forms.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+
+
+<body>
+    <div class="left_container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../img/logo.png" alt="Logo">
+                <span class="title">Smart Inventory</span>
+            </div>
+            <ul class="menu">
+                <span class="menu-title">Main Menu</span>
+                <li class="menu_buttons " id="li_dashboard"><a href="dashboard.html"><i
+                            class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="menu_buttons" id="li_users"><a href="users.html"><i class="fas fa-user"></i> utilizadores</a>
+                </li>
+                <li class="menu_buttons ativo" id="li_assets"><a href="assets.html"><i class="fas fa-box"></i>
+                        Ativos</a></li>
+                <li class="menu_buttons" id="li_movements"><a href="movements.html"><i class="fas fa-exchange-alt"></i>
+                        Movimentos</a></li>
+                <li class="menu_buttons" id="li_locations"><a href="#"><i class="fas fa-map marker"></i>
+                        Localizações</a></li>
+                <li class="menu_buttons" id="li_reports"><a href="reports.html"><i class="fas fa-chart-line"></i>
+                        Relatórios</a></li>
+                <li class="menu_buttons" id="li_notifications"><a href="notifications.html"><i class="fas fa-bell"></i>
+                        Notificações</a></li>
+
+            </ul>
+
+
+
+            <div class="sidebar-footer">
+                <button class="logout-button" id="logout-button">Logout <i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </aside>
+    </div>
+
+
+    <div class="right_container">
+
+
+
+        <header>
+            <div class="header">
+                <h1 class="title"> Ativos</h1>
+                <div class="user-profile">
+                    <div class="right-header-buttons">
+                        <button class="console.log-button"><i class="fas fa-bell"></i></button>
+                        <button class="setting-button"><i class="fas fa-cog"></i></button>
+                    </div>
+
+                    <img class="user-avatar" src="../img/perfil.jpg" alt="User Avatar">
+                    <span class="user-name">John Doe</span>
+                </div>
+
+
+
+            </div>
+        </header>
+
+        <main>
+
+
+            <section class="welcome-section">
+
+                <h1>Olá, bem-vindo de volta, John Doe</h1>
+                <p>Segunda-feira, 20 de setembro de 2021, 10:30</p>
+
+                <script>
+                    const welcomeSection = document.querySelector('.welcome-section');
+                    const date = new Date();
+                    const days = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+                    const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+                    const day = days[date.getDay()];
+                    const month = months[date.getMonth()];
+                    const hours = date.getHours();
+                    const minutes = date.getMinutes();
+                    welcomeSection.querySelector('p').textContent = `${day}, ${date.getDate()} de ${month} de ${date.getFullYear()}, ${hours}:${minutes}`;
+                </script>
+
+
+
+            </section>
+
+
+
+
+
+            <main>
+
+
+                <div class="table_container">
+                    <div class="table_header">
+                        <h1>Ativos</h1>
+                        <button id="create_asset_button" class="button">Criar Ativo</button>
+                    </div>
+                    <div class="container">
+                        <div class="search">
+                            <input type="text" id="search" placeholder="Search">
+                            <button id="search_button">Procurar</button>
+                        </div>
+                        <span id="searchResult">
+                            <span id="search_title">Resultados da pesquisa em : </span>
+                            <button id="close_search_result"
+                                onclick="document.getElementById('searchResult').style.display = 'none'"> Ver
+                                todos</button>
+
+
+
+                        </span>
+
+
+                        <table id="assets_table" class="table_body">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome</th>
+                                    <th>Serial</th>
+                                    <th>Categoria</th>
+                                    <th>Localização</th>
+                                    <th>Descriçao</th>
+                                    <th>Acções</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody id="assets_table_body">
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+            </main>
+
+    </div>
+
+</body>
+<div class="aruco_maker" aruco_id="0" style="display: none;">
+
+
+    <h1>ArUco markers generator!</h1>
+    <div class="marker-id"></div>
+		<div class="marker"></div>
+		<form class="setup">
+			<div class="field">
+				<label for="frm-id">Marker ID:</label>
+				<input id="frm-id" name="id" type="number" min="0" max="999" value="0">
+			</div>
+			<div class="field">
+				<label for="frm-size">Marker size, mm:</label>
+				<input id="frm-size" name="size" type="number" min="10" max="5000" value="100">
+			</div>
+		</form>
+
+		
+        <button class="download">Download pdf</button>
+
+</div>
+
+<div class="new_form" assetId="" data-edit-mode="false">
+    <h2 class="form_h2" id="title_add_edit_user_form">Add a New User</h2>
+
+
+    <form enctype="multipart/form-data">
+
+
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="new_asset_name" required>
+
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="serial">Serial:</label>
+            <input type="number" id="new_asset_Serial">
+        </div>
+
+        <div class="form-group">
+            <label for="type">Categoria:</label>
+            <select id="new_asset_type" required class="form-control">
+                <option value="">Selecione o tipo do objecto</option>
+
+
+            </select>
+        </div>
+
+
+        <style>
+            .form-group-location {
+                display: flex;
+                justify-content: space-between;
+
+            }
+        </style>
+
+
+        <div class="form-group">
+            <label for="location">Localização:</label>
+
+            <div class="form-group-location">
+                <select id="Piso" required class="form-control">
+                    <option value="">Selecione o Piso</option>
+                    <option value="0">Piso 0</option>
+                    <option value="1">Piso 1</option>
+                    <option value="2 ">Piso 2</option>
+                </select>
+                <select id="new_asset_location" required class="form-control" disabled>
+                    <option value="">Selecione a sala</option>
+                </select>
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="description">Descrição:</label>
+            <textarea id="new_asset_description" required></textarea>
+        </div>
+
+
+
+
+    </form>
+    <div class="button-container">
+        <button class="form_button_cancel" id="cancel_button">Cancel</button>
+        <button class="form_button_add" id="add_new_asset_button">Adicionar Ativo</button>
+    </div>
+
+    
+</div>
+
+
+<style>
+    .aruco_maker {
+      
+       
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+    .marker {
+	text-align: center;
+	background: white;
+	margin: 40px;
+}
+
+.marker table {
+	border: none;
+	border-collapse: collapse;
+	margin: 0;
+	padding: 0;
+	width: 100mm;
+	height: 100mm;
+}
+
+.marker table td {
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: white;
+}
+
+
+    .aruco_maker .title {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .aruco_maker .marker {
+        background-color: #f0f0f0;
+        margin: 10px 0;
+    }
+
+    .aruco_maker .field {
+        margin: 10px 0;
+    }
+
+    .aruco_maker .field label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .aruco_maker .field input {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .aruco_maker .field input[type="number"] {
+        width: 50px;
+    }
+
+    .aruco_maker .setup {
+        margin: 10px 0;
+    }
+
+    .aruco_maker .setup .field {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .aruco_maker .setup .field label {
+        margin-bottom: 0;
+    }
+
+    .aruco_maker .setup .field input {
+        width: 50px;
+    }
+
+    .aruco_maker .setup .field input[type="number"] {
+        width: 50px;
+    }
+
+    .aruco_maker .setup .field:last-child {
+        margin-right: 0;
+    }
+
+    .aruco_maker .setup .field:last-child input {
+        width: 50px;
+    }
+
+    .aruco_maker .download {
+        padding: 10px 20px;
+        width: 100%;
+        background-color: #ff7700;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .aruco_maker .download:hover {
+        background-color: #ff6600;
+    }
+
+    .aruco_maker .download:active {
+        background-color: #ff5500;
+    }
+
+    .aruco_maker .download:focus {
+        outline: none;
+    }
+
+    .aruco_maker .download:disabled {
+        background-color: #ccc;
+        color: #999;
+    }
+
+    .aruco_maker .download:disabled:hover {
+        background-color: #ccc;
+    }
+
+    .aruco_maker .download:disabled:active {
+        background-color: #ccc;
+    }
+
+    .aruco_maker .download:disabled:focus {
+        outline: none;
+    }
+
+
+
+    
+ 
+
+  
+
+
+
+
+</style>
+
+<script>
+
+
+    // ****************************************************************************************************
+    // Declaracoes de variaveis globais
+    // ****************************************************************************************************
+    let ip = "192.168.0.18";
+
+
+    const assetsTableBody = document.getElementById('assets_table_body');
+    const createAssetButton = document.getElementById('create_asset_button');
+    const newAssetForm = document.querySelector('.new_form');
+    const addNewAssetButton = document.getElementById('add_new_asset_button');
+    const cancelAssetButton = document.getElementById('cancel_button');
+    const searchButton = document.getElementById('search_button');
+    const searchInput = document.getElementById('search');
+    const editAssetButtons = document.querySelectorAll('.edit_asset_btn');
+    const deleteAssetButtons = document.querySelectorAll('.delete_asset_btn');
+    const searchResult = document.getElementById('searchResult')
+    const close_search_result = document.getElementById('close_search_result');
+    const selectedPiso = document.getElementById('Piso');
+
+
+    let editMode = false;
+
+
+
+
+
+    // ****************************************************************************************************
+    // listiners
+    // ****************************************************************************************************
+
+    selectedPiso.addEventListener('change', (e) => {
+        const piso = e.target.value;
+        getAllOLocation(piso);
+    });
+
+
+    close_search_result.addEventListener('click', () => {
+        searchResult.style.display = 'none';
+        document.getElementById('search').value = '';
+        getAllAssets();
+    });
+
+    assetsTableBody.addEventListener('click', (e) => {
+        if (e.target.classList.contains('edit_asset_btn')) {
+            editMode = true;
+            const assetId = e.target.closest('tr').children[0].textContent;
+            newAssetForm.style.display = 'block';
+            newAssetForm.setAttribute('data-edit-mode', 'true');
+            newAssetForm.setAttribute('assetId', assetId);
+            getAllObjectsTypes(assetId);
+            fillAssetForm();
+        } else if (e.target.classList.contains('delete_asset_btn')) {
+            const assetId = e.target.closest('tr').children[0].textContent;
+            deleteAsset(assetId);
+        } else if (e.target.classList.contains('aruco_asset_btn')) {
+            const aruco_id = e.target.getAttribute('aruco_id');
+            const aruco_maker = document.querySelector('.aruco_maker');
+            aruco_maker.style.display = 'block';
+            aruco_maker.querySelector('.marker-id').textContent = `ID: ${aruco_id}`;
+            aruco_maker.setAttribute('aruco_id', aruco_id);
+            
+          
+            aruco_maker.querySelector('.download').addEventListener('click', () => {
+                aruco_maker.style.display = 'none';
+            });
+            
+
+
+        }
+    });
+
+    createAssetButton.addEventListener('click', () => {
+        newAssetForm.style.display = 'block';
+        newAssetForm.setAttribute('data-edit-mode', 'false');
+        newAssetForm.setAttribute('assetId', '');
+        editMode = false;
+        assetId = null;
+        const piso = document.getElementById('Piso').value;
+        getAllObjectsTypes();
+    });
+
+    addNewAssetButton.addEventListener('click', () => {
+        if (editMode) {
+            editAsset();
+        } else {
+            addAsset();
+        }
+    });
+
+    cancelAssetButton.addEventListener('click', () => {
+        newAssetForm.style.display = 'none';
+        clearAssetForm();
+    });
+
+    searchButton.addEventListener('click', () => {
+        searchAsset();
+    });
+
+
+
+
+    document.addEventListener("DOMContentLoaded", (e) => {
+        getAllAssets();
+    });
+
+
+
+    // ****************************************************************************************************
+    // Funcoes
+    // ****************************************************************************************************
+
+    function clearAssetForm() {
+        document.getElementById('new_asset_name').value = '';
+        document.getElementById('new_asset_Serial').value = '';
+        document.getElementById('new_asset_type').value = '';
+        document.getElementById('new_asset_location').value = '';
+        document.getElementById('new_asset_description').value = '';
+    }
+
+    function getAllAssets() {
+        fetch(`http://192.168.0.18:4242/api/objects`)
+            .then(response => response.json())
+            .then(data => {
+                assetsTableBody.innerHTML = '';
+                data.forEach(asset => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                    <td>${asset.id}</td>
+                    <td>${asset.name}</td>
+                    <td>${asset.serial}</td>
+                    <td>${asset.category.description}</td>
+                    <td>${asset.location.description}</td>
+                    <td>${asset.description}</td>
+                    <td class="action-icons">
+                        <a href="#" title="Edit"><i class="fas fa-edit edit_asset_btn"></i></a>
+                        <a href="#" title="Delete"><i class="fas fa-trash-alt delete_asset_btn"></i></a>
+                        <a href="#" title="Aruco"><i class="fas fa-qrcode aruco_asset_btn" aruco_id="${asset.category.id}"></i></a>
+                    </td>
+                `;
+                    assetsTableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.log('An error occurred');
+            });
+    }
+
+
+    function getAllObjectsTypes() {
+        fetch(`http://192.168.0.18:4242/api/objects/category/`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(type => {
+                    console.log(type.name);
+                    const option = document.createElement('option');
+                    option.value = type.id;
+                    option.textContent = type.name;
+                    document.getElementById('new_asset_type').appendChild(option);
+
+                });
+            })
+            .catch(error => {
+                console.log('An error occurred');
+            });
+
+
+    }
+
+    function getAllOLocation(piso) {
+        fetch(`http://192.168.0.18:4242/api/location/LocationByFloor/${piso}`)
+            .then(response => response.json())
+            .then(data => {
+
+                document.getElementById('new_asset_location').disabled = false;
+
+
+                data.forEach(location => {
+                    const option = document.createElement('option');
+                    option.value = location.id;
+                    option.textContent = location.name;
+                    document.getElementById('new_asset_location').appendChild(option);
+
+
+                });
+            })
+            .catch(error => {
+                console.log('An error occurred');
+            });
+
+
+
+    }
+
+
+
+    function fillAssetForm() {
+        const assetId = newAssetForm.getAttribute('assetId');
+        fetch(`http://${ip}:4242/api/objects/objectbyid/${assetId}`)
+            .then(response => response.json())
+            .then(data => {
+                fillAssetFormFields(data.name, data.serial, data.category_id, data.piso, data.location_id, data.description);
+            })
+            .catch(error => {
+                console.log('An error occurred');
+            });
+    }
+
+
+
+    function fillAssetFormFields(name, serial, category_id, piso, location_id, description) {
+        document.getElementById('new_asset_name').value = name;
+        document.getElementById('new_asset_Serial').value = serial;
+        document.getElementById('new_asset_type').value = category_id;
+        document.getElementById('new_asset_location').value = location_id;
+        document.getElementById('Piso').value = piso;
+
+        document.getElementById('new_asset_description').value = description;
+    }
+
+    function addAsset() {
+        const name = document.getElementById('new_asset_name').value;
+        const serial = document.getElementById('new_asset_Serial').value;
+        const category_id = document.getElementById('new_asset_type').value;
+        const location_id = document.getElementById('new_asset_location').value;
+        const description = document.getElementById('new_asset_description').value;
+
+
+
+        fetch(`http://${ip}:4242/api/objects/create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name,
+                serial,
+                category_id,
+                location_id,
+                description
+            })
+        })
+
+            // dar erro se a resposta for 400
+            .then(response => response.json())
+
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    console.log('Asset added successfully');
+                    location.reload();
+                }
+            })
+
+            .catch(error => {
+                console.log('An error occurred');
+            });
+
+
+    }
+
+    function editAsset() {
+        const assetId = newAssetForm.getAttribute('assetId');
+        const name = document.getElementById('new_asset_name').value;
+        const serial = document.getElementById('new_asset_Serial').value;
+        const category_id = document.getElementById('new_asset_type').value;
+        const objectTypeName = document.getElementById('new_asset_type').selectedOptions[0].textContent;
+        const location_id = document.getElementById('new_asset_location').value;
+        const description = document.getElementById('new_asset_description').value;
+
+        fetch(`http://${ip}:4242/api/objects/${assetId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name,
+                serial,
+                category_id,
+                location_id,
+
+                description,
+                objectTypeName
+            })
+        })
+
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    console.log('Asset edited successfully');
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                console.log('An error occurred');
+            });
+
+    }
+
+    function deleteAsset(assetId) {
+        fetch(`http://${ip}:4242/api/objects/${assetId}`, {
+            method: 'DELETE'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    console.log('Asset deleted successfully');
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                console.log('An error occurred');
+            });
+    }
+
+    function searchAsset() {
+
+
+        const searchTitle = document.getElementById('search_title');
+        const searchResult = document.getElementById('searchResult');
+        searchResult.style.display = 'block';
+        const search = searchInput.value;
+
+        searchTitle.textContent = 'Resultados da pesquisa em :  ' + search;
+        fetch(`http://${ip}:4242/api/objects/search/${search}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error);
+                } else if (data.length === 0) {
+
+                    assetsTableBody.innerHTML = '<tr><td colspan="7" style="text-align: center" style="color: red;">No results found</td></tr>';
+                } else {
+                    assetsTableBody.innerHTML = '';
+                    data.forEach(asset => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                        <td>${asset.id}</td>
+                        <td>${asset.name}</td>
+                        <td>${asset.serial}</td>
+                        <td>${asset.category.description}</td>
+                        <td>${asset.location_id}</td>
+                        <td>${asset.description}</td>
+                        <td class="action-icons">
+                            <a href="#" title="Edit"><i class="fas fa-edit edit_asset_btn"></i></a>
+                            <a href="#" title="Delete"><i class="fas fa-trash-alt delete_asset_btn"></i></a>
+                            <a href="#" title="Aruco"><i class="fas fa-qrcode"></i></a>
+                        </td>
+                    `;
+                        assetsTableBody.appendChild(row);
+                    });
+                }
+            })
+            .catch(error => {
+                console.log('An error occurred');
+            });
+    }
+
+</script>
+
+<script src="../JS/geral.js"></script>
+<script src="../JS/aruco.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+</html>

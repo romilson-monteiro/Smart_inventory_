@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ativos - Smart Inventory Dashboard</title>
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <link rel="stylesheet" href="../CSS/forms.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+
+
+<body>
+    <div class="left_container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../img/logo.png" alt="Logo">
+                <span class="title">Smart Inventory</span>
+            </div>
+            <ul class="menu">
+                <span class="menu-title">Main Menu</span>
+                <li class="menu_buttons " id="li_dashboard"><a href="dashboard.html"><i
+                            class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="menu_buttons" id="li_users"><a href="users.html"><i class="fas fa-user"></i> utilizadores</a>
+                </li>
+                <li class="menu_buttons ativo" id="li_assets"><a href="assets.html"><i class="fas fa-box"></i>
+                        Ativos </a></li>
+                <li class="menu_buttons" id="li_categories"><a href="categories.html"><i class="fas fa-boxes"></i>
+                        Categorias</a></li>
+
+                <li class="menu_buttons" id="li_movements"><a href="movements.html"><i class="fas fa-exchange-alt"></i>
+                        Movimentos</a></li>
+                <li class="menu_buttons" id="li_locations"><a href="location.html"><i class="fas fa-map-marker"></i>
+                        Localizações</a>
+                <li class="menu_buttons" id="li_reports"><a href="reports.html"><i class="fas fa-chart-line"></i>
+                        Relatórios</a></li>
+                <li class="menu_buttons" id="li_notifications"><a href="notifications.html"><i class="fas fa-bell"></i>
+                        Notificações</a></li>
+
+            </ul>
+
+
+
+            <div class="sidebar-footer">
+                <button class="logout-button" id="logout-button">Logout <i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </aside>
+    </div>
+
+
+    <div class="right_container">
+
+
+
+        <header>
+            <div class="header">
+                <h1 class="title"> Dashboard > Ativos</h1>
+                <div class="user-profile">
+                    <div class="right-header-buttons">
+                        <button class="console.log-button"><i class="fas fa-bell"></i></button>
+                        <button class="setting-button"><i class="fas fa-cog"></i></button>
+                    </div>
+
+                    <img class="user-avatar" src="../img/perfil.jpg" alt="User Avatar">
+                    <span class="user-name">John Doe</span>
+                </div>
+
+
+
+            </div>
+        </header>
+
+        <main>
+
+
+            <div class="table_container">
+                <div class="table_header">
+                    <h1>Ativos</h1>
+                    <button id="create_asset_button" class="button">Criar Ativo</button>
+                </div>
+                <div class="container">
+                    <div class="search">
+                        <input type="text" id="search" placeholder="Search">
+                        <button id="search_button">Procurar</button>
+                    </div>
+                    <span id="searchResult">
+                        <span id="search_title">Resultados da pesquisa em : </span>
+                        <button id="close_search_result"
+                            onclick="document.getElementById('searchResult').style.display = 'none'"> Ver
+                            todos</button>
+
+
+
+                    </span>
+
+
+                    <table id="assets_table" class="table_body">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>uhf_tag</th>
+                                <th>Categoria</th>
+                                <th>Localização</th>
+                                <th>Descriçao</th>
+                                <th>Acções</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody id="assets_table_body">
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+        </main>
+
+    </div>
+
+    </main>
+
+</body>
+<div class="new_form" assetId="" data-edit-mode="false">
+    <h2 class="form_h2" id="title_add_edit_user_form">Novo Ativo</h2>
+
+
+    <form enctype="multipart/form-data">
+
+
+        <div class="form-group">
+            <label for="name">Nome:</label>
+            <input type="text" id="new_asset_name" required>
+
+        </div>
+
+
+<div class="form-group">
+            <label for="uhf_tag">UHF Tag:</label>
+
+<div class="form-group-uhf_tag">
+            <input type="text" id="new_asset_uhf_tag" required>
+            <button type="button" id="btn_read_uhf" >Ler UHF</button>
+                
+        </div>
+        <p id="statusMessage"></p>
+</div>
+        
+
+        <div class="form-group">
+            <label for="type">Categoria:</label>
+            <select id="new_asset_type" required class="form-control">
+                <option value="">Selecione o tipo do objecto</option>
+
+
+            </select>
+        </div>
+
+
+        <style>
+            .form-group-location, .form-group-uhf_tag {
+                display: flex;
+                justify-content: space-between;
+
+            }
+            #statusMessage {
+                margin-top: 10px;
+                margin-left: 10px;
+                color: red;
+            }
+            #btn_read_uhf {
+                background-color : #0971d9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+            }
+           
+        </style>
+
+
+        <div class="form-group">
+            <label for="location">Localização:</label>
+
+            <div class="form-group-location">
+                <select id="Piso" required class="form-control">
+                    <option value="">Selecione o Piso</option>
+                    <option value="0">Piso 0</option>
+                    <option value="1">Piso 1</option>
+                    <option value="2 ">Piso 2</option>
+                </select>
+                <select id="new_asset_location" required class="form-control" disabled>
+                    <option value="">Selecione a sala</option>
+                </select>
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="description">Descrição:</label>
+            <textarea id="new_asset_description" required></textarea>
+        </div>
+
+
+
+
+    </form>
+    <div class="button-container">
+        <button class="form_button_cancel" id="cancel_button">Cancel</button>
+        <button class="form_button_add" id="add_new_asset_button">Adicionar Ativo</button>
+    </div>
+
+
+</div>
+
+
+
+
+<script type="module" src="../JS/geral.js"></script>
+<script type="module" src="../JS/assets.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+</html>
