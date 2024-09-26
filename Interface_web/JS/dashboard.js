@@ -1,4 +1,5 @@
 import { ip } from './config/config.js';
+// import { WebSocket } from 'ws';
 
 document.addEventListener("DOMContentLoaded", function () {
     fetchDashboardStatistics();
@@ -18,7 +19,8 @@ function updateDateTime() {
     welcomeSection.querySelector('#currentDateTime').textContent = `${day}, ${date.getDate()} de ${month} de ${date.getFullYear()}, ${hours}:${formattedMinutes}`;
 }
 updateDateTime();
-setInterval(updateDateTime, 60000);
+    setInterval(updateDateTime, 60000);
+    connectWebSocket();
 
 });
 // Fetch dados do dashboard
@@ -202,3 +204,60 @@ setInterval(updateDateTime, 60000);
 }
 //{"message":"Statistics retrieved successfully","totalUsers":1,"totalAssets":1,"totalMovements":1,"recentMovements":[{"asset":"Cadeira","previousLocation":"S.1.1","currentLocation":"S.2.13","timestamp":"2024-07-10T18:15:47.000Z"}],"assetsByLocation":{"labels":["S.2.1"],"data":[1]},"assetsByCategory":{"labels":["cadeiras"],"data":[1]},"dailyMovementsChart":{"labels":["2024-07-10"],"data":[1]}}
 
+let socket;
+let reconnectInterval = 5000; // Tempo entre tentativas de reconexão
+
+function connectWebSocket() {
+            const wsUrl = "ws://localhost:4242"
+            socket = new WebSocket(wsUrl);
+
+            // Evento disparado quando a conexão é aberta
+            socket.onopen = function () {
+                console.log('Conectado ao servidor WebSocket');
+                // document.getElementById('status').innerText = 'Status: Conectado';
+            };
+
+            // Evento disparado ao receber uma mensagem do servidor
+            socket.onmessage = function (event) {
+                console.log('Mensagem recebida do servidor:', event.data);
+                const data = event.data;
+
+                try {
+                    let parsedData = JSON.parse(data.toString())
+                    // Atualizar tabela de movimentações recentes
+                    const tableBody = document.querySelector('#lastMovementsTable tbody');
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${parsedData.asset}</td><td>${parsedData.previousLocation}</td><td>${parsedData.currentLocation}</td><td>${parsedData.timestamp}</td>`;
+                    tableBody.appendChild(row);
+                } catch(error) {
+                    console.log("Mensagem JSON inválida")
+                    return
+                }
+                
+                
+            };
+
+            // Evento disparado quando há um erro na conexão
+            socket.onerror = function (error) {
+                // console.error('Erro no WebSocket:', error);
+            };
+
+            // Evento disparado quando a conexão é fechada
+            socket.onclose = function () {
+                console.log('Conexão WebSocket fechada. Tentando reconectar...');
+                // document.getElementById('status').innerText = 'Status: Desconectado';
+                // Tenta reconectar após um intervalo de tempo
+                setTimeout(connectWebSocket, reconnectInterval);
+            };
+        }
+
+        // Função para enviar uma mensagem ao servidor
+        function sendMessage() {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                const message = { content: 'Olá, servidor!' };
+                socket.send(JSON.stringify(message));
+                console.log('Mensagem enviada:', message);
+            } else {
+                console.log('Conexão WebSocket não está aberta.');
+            }
+        }

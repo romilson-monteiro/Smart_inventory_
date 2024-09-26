@@ -5,17 +5,16 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import { api } from "./routes/index.js";
 import { projeto2_db } from "./config/context/database.js";
-import { addMoviment } from "./controllers/objects.controller.js";
-
+import { WebSocketServer } from 'ws';
+import http from 'http'; // Importando para criar o servidor HTTP nativo
 
 dotenv.config();
 
 const server = express();
 
-const clientURL = "*";
-
 const corsOptions = {
-  origin: clientURL,
+  origin: "*", // Para todas as origens. Em produção, especifique as origens confiáveis.
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
 };
 server.use(cors(corsOptions));
 
@@ -27,34 +26,6 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
 server.use("/api", api);
-const MQTT_BROKER = "mqtt://broker.hivemq.com";  // URL do broker MQTT
-const MQTT_TOPIC = "object/movement";  // Tópico MQTT para ouvir
-
-const mqttClient = mqtt.connect(MQTT_BROKER);
-
-mqttClient.on('connect', () => {
-  console.log('Conectado ao broker MQTT');
-  mqttClient.subscribe(MQTT_TOPIC, (err) => {
-    if (!err) {
-      console.log(`Ouvindo o tópico ${MQTT_TOPIC}`);
-
-    }
-  });
-
-});
-
-mqttClient.on('message', (topic, message) => {
-  const messageJson = JSON.parse(message.toString());
-  console.log(`Mensagem recebida: ${message.toString()}`);
-  addMoviment(messageJson);
-}
-);
-
-
-
-
-
-
 
 try {
   projeto2_db.sync({ force: false, alter: true });
@@ -62,17 +33,38 @@ try {
   console.info(error);
 }
 
+// Criar um servidor HTTP nativo com o Express
+const httpServer = http.createServer(server);
 
+// Agora, o WebSocket Server usa o mesmo servidor HTTP
+export const wss = new WebSocketServer({ server: httpServer });
 
+// Quando um cliente se conectar
+wss.on('connection', (ws) => {
+  console.log('Cliente conectado, total de clientes:', wss.clients.size);
 
+  ws.on('message', (message) => {
+    console.log('Mensagem recebida do cliente:', message);
+    // Aqui você pode processar a mensagem ou retransmiti-la
+  });
 
+  ws.on('close', () => {
+    console.log('Cliente desconectado, total de clientes:', wss.clients.size);
+  });
 
+  ws.on('error', (error) => {
+    console.error('Erro no WebSocket:', error);
+  });
+});
 
-server.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, () => {
+// Escutar conexões HTTP e WebSocket na mesma porta
+httpServer.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, () => {
   console.log(
     "Server up and running at http://%s:%s",
     process.env.SERVER_HOST,
     process.env.SERVER_PORT
   );
 });
+
+
 
