@@ -176,7 +176,7 @@
                     <td>${asset.name}</td>
                     <td>${asset.uhf_tag}</td>
                     <td>${asset.category.description}</td>
-                    <td>${asset.location.description}</td>
+                    <td>${asset.location.name}</td>
                     <td>${asset.description}</td>
                     <td class="action-icons">
                         <a href="#" title="Edit"><i class="fas fa-edit edit_asset_btn"></i></a>
