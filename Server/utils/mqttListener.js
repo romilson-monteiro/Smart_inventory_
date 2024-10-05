@@ -86,10 +86,25 @@ client.on('message', async (topic, message) => {
     // Chama a função para enviar a notificação para todos os clientes conectados
     broadcastMessage(parsedMessage);
 
-    console.log(parsedMessage)
-    console.log(`Mensagem recebida - Timestamp: ${timestamp}, Tag UHF: ${uhftag}, Room ID: ${room_id}`);
+    
+    console.log(`Mensagem recebida - Timestamp: ${timestamp}, Tag UHF: ${uhftag}, Room ID: ${location_id}`);
+    addMoviment_uhf(parsedMessage);
+
+    
+  } else if (topic === 'pj2/CVmoviment') {
+    let messageJson;
+    try {
+      messageJson = JSON.parse(message.toString());
+    } catch (error) {
+      console.log('Mensagem JSON inválida recebida:', error);
+      return;
+    }
+    addMoviment_CV(messageJson);
   }
-});
+
+}
+);
+
 
 
 export function addUHFTag() {

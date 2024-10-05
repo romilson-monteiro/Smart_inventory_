@@ -7,6 +7,7 @@ import { api } from "./routes/index.js";
 import { projeto2_db } from "./config/context/database.js";
 import { WebSocketServer } from 'ws';
 import http from 'http'; // Importando para criar o servidor HTTP nativo
+import './utils/mqttListener.js';
 
 dotenv.config();
 
