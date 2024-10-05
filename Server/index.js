@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import { api } from "./routes/index.js";
 import { projeto2_db } from "./config/context/database.js";
-import { addMoviment } from "./controllers/objects.controller.js";
+import './utils/mqttListener.js';
 
 
 dotenv.config();
@@ -27,30 +27,6 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
 server.use("/api", api);
-const MQTT_BROKER = "mqtt://broker.hivemq.com";  // URL do broker MQTT
-const MQTT_TOPIC = "object/movement";  // Tópico MQTT para ouvir
-
-const mqttClient = mqtt.connect(MQTT_BROKER);
-
-mqttClient.on('connect', () => {
-  console.log('Conectado ao broker MQTT');
-  mqttClient.subscribe(MQTT_TOPIC, (err) => {
-    if (!err) {
-      console.log(`Ouvindo o tópico ${MQTT_TOPIC}`);
-
-    }
-  });
-
-});
-
-mqttClient.on('message', (topic, message) => {
-  const messageJson = JSON.parse(message.toString());
-  console.log(`Mensagem recebida: ${message.toString()}`);
-  addMoviment(messageJson);
-}
-);
-
-
 
 
 

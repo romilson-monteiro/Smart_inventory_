@@ -1,6 +1,7 @@
 import mqtt from 'mqtt';
 import dotenv from 'dotenv';
 import { ObjectsModel } from '../models/objects.model.js';
+import { addMoviment_CV, addMoviment_uhf } from "../controllers/objects.controller.js";
 
 
 
@@ -33,7 +34,19 @@ client.on('connect', () => {
       console.log('Inscrito no tópico pj2/addTag');
     }
   });
+
+// inscreva-se no  tópico onde os movimentos detetado pela camera são publicados
+  client.subscribe('pj2/CVmoviment', (err) => {
+    if (err) {
+      console.error('Erro ao se inscrever no tópico:', err);
+    } else {
+      console.log('Inscrito no tópico pj2/CVmoviment');
+    }
+  }
+  );
 });
+
+
 
 
 
@@ -48,18 +61,38 @@ client.on('message', async (topic, message) => {
       return;
     }
 
-    const { timestamp, uhftag, room_id } = parsedMessage;
+    const { timestamp, uhftag, location_id } = parsedMessage;
 
-    if (!timestamp || !uhftag || !room_id) {
+    if (!timestamp || !uhftag || !location_id) {
       console.log('Mensagem JSON faltando campos obrigatórios');
       return;
     }
 
-    console.log(`Mensagem recebida - Timestamp: ${timestamp}, Tag UHF: ${uhftag}, Room ID: ${room_id}`);
+    console.log(`Mensagem recebida - Timestamp: ${timestamp}, Tag UHF: ${uhftag}, Room ID: ${location_id}`);
+    addMoviment_uhf(parsedMessage);
 
     
+  } else if (topic === 'pj2/CVmoviment') {
+    let messageJson;
+    try {
+      messageJson = JSON.parse(message.toString());
+    } catch (error) {
+      console.log('Mensagem JSON inválida recebida:', error);
+      return;
+    }
+    addMoviment_CV(messageJson);
   }
-});
+
+}
+);
+
+
+
+// Função que aguarda a publicação de uma tag UHF e a retorna
+
+
+
+
 export function addUHFTag() {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {

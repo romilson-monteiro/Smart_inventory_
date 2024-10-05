@@ -551,17 +551,112 @@ export const MovimentsSearch = async (req, res) => {
 
 
 
+// // Deteção UHF
+// {
+// 	"detection_type": "UHF",
+// 	"timestamp" : "21-05-2024:11:13",
+// 	"uhftag" : "38985398893ujfrfo3"
+// 	"location_id" : "1"
+// }
 
-export async function addMoviment(data) {
+// // Deteção CV
+// {
+// 	"detection_type": "CV"
+// 	"object_class": "1",
+// 	"confidence": "0-100%",
+// 	"aruco_id": "1",
+// 	"timestamp": "21-05-2024:11:13",
+// 	"location_id" : "1"
+// }
+
+export async function addMoviment_uhf(data) {
     try {
         if (!data) {
             throw new Error("No data provided");
         }
 
-        const { aruco_id, object_class, Location_local_id, confidence, box } = data;
+        const { uhftag, location_id, timestamp, detection_type} = data;
+        
+        if (uhftag === undefined || location_id === undefined || timestamp === undefined || detection_type === undefined) {
+            throw new Error("Missing required fields in data");
+        }
+
+        const object = await ObjectsModel.findOne({ where: { uhf_tag: uhftag } });
+        if (!object) {
+            console.log("object not found ");
+            return;
+        }
+
+        const location = await LocationModel.findOne({ where: { id: location_id } });
+        const last_location = object.location_id;
+        const current_location = location.id;
+
+        // Atualiza a localização do objeto
+
+        // verificar se a localização é a mesma , se for não registra o movimento e atualizar no objecto apenas location_last_update: timeStamps
+
+        if (last_location === current_location) {
+            console.log("object in the same location");
+            await ObjectsModel.update({ location_last_update: timestamp }, { where: { uhf_tag: uhftag } });
+            return;
+        }
+
+        const description = `Movimentação de ${object.name} de ${last_location} para ${current_location}`;
+        const timeStamps = timestamp;
+        const type = "entrada";
+        const moviment = await MovimentsModel.create({
+            asset_id: object.id,
+            last_location,
+            current_location,
+            description,
+            timeStamps,
+            type,
+        });
+
+        await ObjectsModel.update({ location_id: current_location, location_last_update: timeStamps }, { where: { uhf_tag: uhftag } });
+
+        await LogsModel.create({ description: `Movimentação de ${object.name} de ${last_location} para ${current_location}`, timeStamps: new Date(), event_type: "moviment" });
+
+        console.log("Movimentação de ", object.name, " de ", last_location, " para ", current_location);
+       
+        return {
+            id: moviment.id,
+            last_location: moviment.last_location,
+            current_location: moviment.current_location,
+            description: moviment.description,
+            timeStamps: moviment.timeStamps,
+            type: moviment.type,
+        };
+
+
+    } catch (error) {
+        console.error('Error adding moviment:', error);
+        return { message: 'Failed to add moviment', error };
+    }
+}
+
+
+
+export async function addMoviment_CV(data) {
+    try {
+        if (!data) {
+            throw new Error("No data provided");
+        }
+
+        console.log(data);
+        console.log("aruco_id", data.aruco_id);
+        console.log("object_class", data.object_class);
+        console.log("location_id", data.location_id);
+        console.log("confidence", data.confidence);
+        console.log("box", data.box);
+        console.log("timestamp", data.timestamp);
+        console.log("detection_type", data.detection_type);
+        
+
+        const { aruco_id, object_class, location_id, confidence, box } = data;
         const timestamp = new Date();
 
-        if (aruco_id === undefined || object_class === undefined || Location_local_id === undefined || confidence === undefined || box === undefined) {
+        if (aruco_id === undefined || object_class === undefined || location_id === undefined || confidence === undefined || box === undefined) {
             throw new Error("Missing required fields in data");
 
         }
@@ -576,7 +671,7 @@ export async function addMoviment(data) {
                 return;
             }
 
-            const location = await LocationModel.findOne({ where: { id: Location_local_id } });
+            const location = await LocationModel.findOne({ where: { id: location_id } });
 
             
             const last_location = user.location_id;
@@ -621,17 +716,7 @@ export async function addMoviment(data) {
             };
  */
 
-
-
-
-
-
         } else {
-
-
-
-
-
             const object = await ObjectsModel.findOne({ where: { id: aruco_id } });
             // verifica se o objeto existe e é object_class
             if (!object) {
@@ -651,7 +736,7 @@ export async function addMoviment(data) {
 
 
 
-            const location = await LocationModel.findOne({ where: { id: Location_local_id } });
+            const location = await LocationModel.findOne({ where: { id: location_id } });
             const last_location = object.location_id;
             const current_location = location.id;
 
@@ -667,11 +752,6 @@ export async function addMoviment(data) {
                 return;
 
             }
-
-
-
-
-
 
 
             const description = `Movimentação de ${object.name} de ${last_location} para ${current_location} com confiança de ${confidence}`;
