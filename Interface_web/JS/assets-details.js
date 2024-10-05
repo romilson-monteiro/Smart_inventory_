@@ -78,7 +78,7 @@ fetch(`http://${ip}:4242/api/objects/objectbyid/${assetID}`,
             document.getElementById('asset-uhf_tag').textContent = data.uhf_tag;
             document.getElementById('asset-category').textContent = data.category.description;
             document.getElementById('asset-description').textContent = data.description;
-            document.getElementById('asset-location').textContent = data.location.description
+            document.getElementById('asset-location').textContent = data.location.name
             document.getElementById('asset-location-last-update').textContent = data.location_last_update
         }
     })
