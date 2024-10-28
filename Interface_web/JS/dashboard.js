@@ -19,8 +19,8 @@ function updateDateTime() {
     welcomeSection.querySelector('#currentDateTime').textContent = `${day}, ${date.getDate()} de ${month} de ${date.getFullYear()}, ${hours}:${formattedMinutes}`;
 }
 updateDateTime();
-    setInterval(updateDateTime, 60000);
-    connectWebSocket();
+setInterval(updateDateTime, 60000);
+connectWebSocket();
 
 });
 // Fetch dados do dashboard
@@ -208,7 +208,7 @@ let socket;
 let reconnectInterval = 5000; // Tempo entre tentativas de reconexão
 
 function connectWebSocket() {
-            const wsUrl = "ws://localhost:4242"
+            const wsUrl = `ws://${ip}:4242`
             socket = new WebSocket(wsUrl);
 
             // Evento disparado quando a conexão é aberta
