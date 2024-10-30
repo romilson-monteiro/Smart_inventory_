@@ -5,7 +5,8 @@ import { CategoryGrupeModel } from "../models/CategoryGrupe.model.js";
 import { MovimentsModel } from "../models/moviments.model.js";
 import { UsersModel } from "../models/users.model.js";
 import { addUHFTag } from "../utils/mqttListener.js";
-
+import { WebSocket } from 'ws';
+import { wss } from '../index.js';
 
 import { LogsModel } from "../models/Logs.model.js";
 
@@ -588,20 +589,24 @@ export async function addMoviment_uhf(data) {
         }
 
         const location = await LocationModel.findOne({ where: { id: location_id } });
-        const last_location = object.location_id;
-        const current_location = location.id;
+        
+
+        const last_location = await LocationModel.findOne({ where: { id: object.location_id } });
+        const current_location = await LocationModel.findOne({ where: { id: location.id } });
+       
+
 
         // Atualiza a localização do objeto
 
         // verificar se a localização é a mesma , se for não registra o movimento e atualizar no objecto apenas location_last_update: timeStamps
 
-        if (last_location === current_location) {
+        if (last_location.id === current_location.id) {
             console.log("object in the same location");
             await ObjectsModel.update({ location_last_update: timestamp }, { where: { uhf_tag: uhftag } });
             return;
         }
 
-        const description = `Movimentação de ${object.name} de ${last_location} para ${current_location}`;
+        const description = `Movimentação de ${object.name} de ${last_location.name} para ${current_location.name}`;
         const timeStamps = timestamp;
         const type = "entrada";
         const moviment = await MovimentsModel.create({
@@ -613,20 +618,30 @@ export async function addMoviment_uhf(data) {
             type,
         });
 
-        await ObjectsModel.update({ location_id: current_location, location_last_update: timeStamps }, { where: { uhf_tag: uhftag } });
-
-        await LogsModel.create({ description: `Movimentação de ${object.name} de ${last_location} para ${current_location}`, timeStamps: new Date(), event_type: "moviment" });
-
-        console.log("Movimentação de ", object.name, " de ", last_location, " para ", current_location);
        
+
+        await ObjectsModel.update({ location_id: current_location.id, location_last_update: timeStamps }, { where: { uhf_tag: uhftag } });
+
+        await LogsModel.create({ description: `Movimentação de ${object.name} de ${last_location.name} para ${current_location.name}`, timeStamps: new Date(), event_type: "moviment" });
+
+        console.log("Movimentação de ", object.name, " de ", last_location.name, " para ", current_location.name);
+        const moviments_return = {
+            id: moviment.id,
+            asset: object.name,
+            previousLocation: last_location.name,
+            currentLocation: current_location.name,
+            timestamp: moviment.timeStamps,
+        };
+        
+        broadcastMessage(moviments_return);
         return {
             id: moviment.id,
-            last_location: moviment.last_location,
-            current_location: moviment.current_location,
-            description: moviment.description,
-            timeStamps: moviment.timeStamps,
-            type: moviment.type,
+            asset: object.name,
+            previousLocation: last_location.name,
+            currentLocation: current_location.name,
+            timestamp: moviment.timeStamps,
         };
+
 
 
     } catch (error) {
@@ -643,14 +658,7 @@ export async function addMoviment_CV(data) {
             throw new Error("No data provided");
         }
 
-        console.log(data);
-        console.log("aruco_id", data.aruco_id);
-        console.log("object_class", data.object_class);
-        console.log("location_id", data.location_id);
-        console.log("confidence", data.confidence);
-        console.log("box", data.box);
-        console.log("timestamp", data.timestamp);
-        console.log("detection_type", data.detection_type);
+        
         
 
         const { aruco_id, object_class, location_id, confidence, box } = data;
@@ -736,48 +744,51 @@ export async function addMoviment_CV(data) {
 
 
 
-            const location = await LocationModel.findOne({ where: { id: location_id } });
-            const last_location = object.location_id;
-            const current_location = location.id;
-
+            const current_location = await LocationModel.findOne({ where: { id: location_id } });
+            const last_location = await LocationModel.findOne({ where: { id: object.location_id } });
+           
             // Atualiza a localização do objeto
 
 
             // verificar se a localização é a mesma , se for não registra o movimento e atualizar no objecto apenas location_last_update: timeStamps
 
 
-            if (last_location == current_location) {
+            if (last_location.id === current_location.id) {
                 console.log("object in the same location");
                 await ObjectsModel.update({ location_last_update: timestamp }, { where: { id: aruco_id } });
                 return;
-
             }
 
-
-            const description = `Movimentação de ${object.name} de ${last_location} para ${current_location} com confiança de ${confidence}`;
+            const description = `Movimentação de ${object.name} de ${last_location.name} para ${current_location.name} com confiança de ${confidence}`;
             const timeStamps = timestamp;
             const type = "entrada";
             const moviment = await MovimentsModel.create({
-                asset_id: aruco_id,
-                last_location,
-                current_location,
+                asset_id: object.id,
+                last_location: last_location.id,
+                current_location: current_location.id,
                 description,
                 timeStamps,
                 type,
             });
 
-            await ObjectsModel.update({ location_id: current_location, location_last_update: timeStamps }, { where: { id: object.id } });
+            console.log("Movimentação de ", object.name, " de ", last_location.name, " para ", current_location.name, " com confiança de ", confidence);
+            await ObjectsModel.update({ location_id: current_location.id, location_last_update: timeStamps }, { where: { id: aruco_id } });
+            await LogsModel.create({ description: `Movimentação de ${object.name} de ${last_location.name} para ${current_location.name}`, timeStamps: new Date(), event_type: "moviment" });
 
-            await LogsModel.create({ description: `Movimentação de ${object.name} de ${last_location} para ${current_location} com confiança de ${confidence}`, timeStamps: new Date(), event_type: "moviment" });
-
-            console.log("Movimentação de ", object.name, " de ", last_location, " para ", current_location, " com confiança de ", confidence);
+            const moviments_return = {
+             
+                asset: object.name,
+                previousLocation: last_location.name,
+                currentLocation: current_location.name,
+                timestamp: moviment.timeStamps,
+            };
+            broadcastMessage(moviments_return);
             return {
                 id: moviment.id,
-                last_location: moviment.last_location,
-                current_location: moviment.current_location,
-                description: moviment.description,
-                timeStamps: moviment.timeStamps,
-                type: moviment.type,
+                asset: object.name,
+                previousLocation: last_location.name,
+                currentLocation: current_location.name,
+                timestamp: moviment.timeStamps,
             };
         }
     }
@@ -785,10 +796,23 @@ export async function addMoviment_CV(data) {
         console.error('Error adding moviment:', error);
         return { message: 'Failed to add moviment', error };
     }
-
 }
 
 
+
+// Função para enviar mensagens para todos os clientes conectados
+function broadcastMessage(data) {
+    const message = JSON.stringify(data);
+    wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+            try {
+                client.send(message);
+            } catch (err) {
+                console.error('Erro ao enviar mensagem:', err);
+            }
+        }
+    });
+}
 
 export const getMovimentsByObjectId = async (req, res) => {
     try {
@@ -843,3 +867,80 @@ export const getAllMoviments = async (req, res) => {
     }
 }
 
+
+
+
+// Controller for Complete Inventory Report
+export const getCompleteInventoryReport = async (req, res) => {
+    try {
+        // Fetch all assets along with their current location data
+        const assets = await ObjectsModel.findAll({
+            attributes: ['id', 'name', 'uhf_tag', 'description'],
+            include: [
+                {
+                    model: LocationModel,
+                    as: 'location',
+                    attributes: ['name', 'floor'],
+                },
+                {
+                    model: CategoryModel,
+                    as: 'category',
+                    attributes: ['name', 'description'],
+                },
+            ],
+            order: [['name', 'ASC']],
+        });
+
+        return res.json(assets);
+
+    } catch (error) {
+        console.error('Error generating complete inventory report:', error);
+        return res.status(500).json({ message: 'Failed to generate complete inventory report', error });
+    }
+};
+
+      
+
+// Controller for Assets by Room
+export const getAssetsByRoomReport = async (req, res) => {
+    try {
+        // Fetch all assets along with their current location data
+        const assets = await ObjectsModel.findAll({
+            attributes: ['id', 'name', 'uhf_tag', 'description'],
+            include: [
+                {
+                    model: LocationModel,
+                    as: 'location',
+                    attributes: ['name', 'floor'],
+                },
+                {
+                    model: CategoryModel,
+                    as: 'category',
+                    attributes: ['name', 'description'],
+                },
+            ],
+            order: [[{ model: LocationModel, as: 'location' }, 'name', 'ASC']],
+        });
+
+        // Group assets by location
+        const groupedAssets = assets.reduce((acc, asset) => {
+            const locationKey = `${asset.location.name} - Piso ${asset.location.floor}`;
+            if (!acc[locationKey]) acc[locationKey] = [];
+            
+            acc[locationKey].push({
+                id: asset.id,
+                name: asset.name,
+                uhf_tag: asset.uhf_tag,
+                category: `${asset.category.description}`,
+                description: asset.description,
+            });
+
+            return acc;
+        }, {});
+
+        return res.json(groupedAssets);
+    } catch (error) {
+        console.error('Error generating assets by room report:', error);
+        return res.status(500).json({ message: 'Failed to generate assets by room report', error });
+    }
+};

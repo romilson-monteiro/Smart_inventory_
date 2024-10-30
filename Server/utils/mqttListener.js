@@ -2,23 +2,10 @@ import mqtt from 'mqtt';
 import dotenv from 'dotenv';
 import { ObjectsModel } from '../models/objects.model.js';
 import { addMoviment_CV, addMoviment_uhf } from "../controllers/objects.controller.js";
-import { WebSocket } from 'ws';
-import { wss } from '../index.js';
 
 
-// Função para enviar mensagens para todos os clientes conectados
-function broadcastMessage(data) {
-    const message = JSON.stringify(data);
-    wss.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-            try {
-                client.send(message);
-            } catch (err) {
-                console.error('Erro ao enviar mensagem:', err);
-            }
-        }
-    });
-}
+
+
 
 dotenv.config();
 
@@ -84,7 +71,7 @@ client.on('message', async (topic, message) => {
     }
 
     // Chama a função para enviar a notificação para todos os clientes conectados
-    broadcastMessage(parsedMessage);
+    
 
     
     console.log(`Mensagem recebida - Timestamp: ${timestamp}, Tag UHF: ${uhftag}, Room ID: ${location_id}`);

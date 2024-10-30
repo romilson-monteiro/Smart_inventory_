@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Relatórios</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2rem;
+        }
+        .report-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .report-card {
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            flex: 1 1 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .report-card:hover {
+            transform: scale(1.02);
+        }
+        .report-card h2 {
+            font-size: 1.5rem;
+            color: #2980b9;
+            margin-bottom: 1rem;
+        }
+        .report-card p {
+            font-size: 1rem;
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+        }
+        .report-card button {
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .preview-btn {
+            background-color: #3498db;
+        }
+        .preview-btn:hover {
+            background-color: #2980b9;
+        }
+        .download-btn {
+            background-color: #2ecc71;
+            margin-top: 0.5rem;
+        }
+        .download-btn:hover {
+            background-color: #27ae60;
+        }
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 700px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .close-btn {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        .close-btn:hover {
+            background-color: #c0392b;
+        }
+        .date-input {
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        input[type="date"] {
+            padding: 0.5rem;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        input[type="date"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Relatórios de Inventário</h1>
+        </div>
+        
+        <div class="report-list">
+            <div class="report-card">
+                <h2>Inventário Completo</h2>
+                <p>Relatório detalhado de todos os ativos inventariados no sistema.</p>
+                <button class="preview-btn" onclick="showPreview('Inventário Completo')">Pré-visualizar</button>
+                <button class="download-btn" onclick="downloadReport('Inventário Completo')">Download</button>
+            </div>
+            
+            <div class="report-card">
+                <h2>Ativos por Sala</h2>
+                <p>Lista todos os ativos organizados por sala respectiva.</p>
+                <button class="preview-btn" onclick="showPreview('Ativos por Sala')">Pré-visualizar</button>
+                <button class="download-btn" onclick="downloadReport('Ativos por Sala')">Download</button>
+            </div>
+            
+            <div class="report-card">
+                <h2>Movimentação entre Datas</h2>
+                <p>Relatório de movimentação de ativos entre um intervalo de datas.</p>
+                <div class="date-input">
+                    <label>Data de Início:</label>
+                    <input type="date" id="startDate">
+                    <label>Data de Fim:</label>
+                    <input type="date" id="endDate">
+                </div>
+                <button class="preview-btn" onclick="showDatePreview()">Pré-visualizar</button>
+                <button class="download-btn" onclick="downloadReport('Movimentação entre Datas')">Download</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for preview -->
+    <div class="modal" id="previewModal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Pré-visualização</h2>
+            <p id="modalContent">Conteúdo do relatório gerado...</p>
+            <button class="close-btn" onclick="closeModal()">Fechar</button>
+        </div>
+    </div>
+    
+    <script>
+        function showPreview(reportType) {
+            const modal = document.getElementById('previewModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalTitle.innerText = reportType;
+            if (reportType === 'Inventário Completo') {
+                modalContent.innerHTML = `
+                    <strong>Inventário Completo:</strong><br>
+                    - Sala 101: Computador, Projetor<br>
+                    - Sala 102: Impressora, Scanner<br>
+                    - Sala 103: Smartboard, Computador
+                `;
+            } else if (reportType === 'Ativos por Sala') {
+                modalContent.innerHTML = `
+                    <strong>Ativos por Sala:</strong><br>
+                    - Sala 101: Computador, Projetor<br>
+                    - Sala 102: Impressora, Scanner
+                `;
+            }
+            
+            modal.style.display = 'flex';
+        }
+        
+        function showDatePreview() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const modal = document.getElementById('previewModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalTitle.innerText = 'Movimentação entre Datas';
+            if (startDate && endDate) {
+                modalContent.innerHTML = `
+                    <strong>Movimentação de ${startDate} a ${endDate}:</strong><br>
+                    - Sala 101 -> Sala 102: Computador<br>
+                    - Sala 102 -> Sala 103: Scanner
+                `;
+            } else {
+                modalContent.innerText = "Por favor, selecione as datas de início e fim.";
+            }
+            modal.style.display = 'flex';
+        }
+        
+        function downloadReport(reportType) {
+            alert(`Iniciando download do relatório: ${reportType}`);
+        }
+        
+        function closeModal() {
+            document.getElementById('previewModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

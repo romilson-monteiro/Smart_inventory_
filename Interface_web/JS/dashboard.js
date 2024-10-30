@@ -208,7 +208,7 @@ let socket;
 let reconnectInterval = 5000; // Tempo entre tentativas de reconexão
 
 function connectWebSocket() {
-            const wsUrl = "ws://localhost:4242"
+            const wsUrl = "ws://192.168.1.56:4242"
             socket = new WebSocket(wsUrl);
 
             // Evento disparado quando a conexão é aberta
