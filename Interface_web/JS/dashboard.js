@@ -3,6 +3,7 @@ import { ip } from './config/config.js';
 
 document.addEventListener("DOMContentLoaded", function () {
     fetchDashboardStatistics();
+    showUnreadNotifications();
 
 
 // Função para atualizar data e hora
@@ -219,22 +220,27 @@ function connectWebSocket() {
 
             // Evento disparado ao receber uma mensagem do servidor
             socket.onmessage = function (event) {
-                console.log('Mensagem recebida do servidor:', event.data);
-                const data = event.data;
+                
+                const parsedData = JSON.parse(event.data);
+                console.log(parsedData);
 
-                try {
-                    let parsedData = JSON.parse(data.toString())
-                    // Atualizar tabela de movimentações recentes
-                    const tableBody = document.querySelector('#lastMovementsTable tbody');
-                    const row = document.createElement('tr');
-                    row.innerHTML = `<td>${parsedData.asset}</td><td>${parsedData.previousLocation}</td><td>${parsedData.currentLocation}</td><td>${parsedData.timestamp}</td>`;
-                    tableBody.appendChild(row);
-                } catch(error) {
-                    console.log("Mensagem JSON inválida")
-                    return
-                }
-                
-                
+                if (parsedData && parsedData.type == "new_move") {
+                    const data = parsedData.data;
+                    try {
+                        // Atualizar tabela de movimentações recentes
+                        const tableBody = document.querySelector('#lastMovementsTable tbody');
+                        const row = document.createElement('tr');
+                        row.innerHTML = `<td>${data.asset}</td><td>${data.last_location}</td><td>${data.current_location}</td><td>${data.timeStamps}</td>`;
+                        tableBody.appendChild(row);
+                        // Atualizar tabela de notificações
+                        const notificationSection = document.querySelector('.alerts-notifications');
+                        notificationSection.innerHTML += `<div class="notification"><span class="message">${data.description}</span><span class="timestamp">${data.timeStamps || 'Data indisponível'}</span></div>`
+                        // notificationSection.innerHTML.appendChild(notification);
+                    } catch(error) {
+                        console.log("Mensagem JSON inválida")
+                        return
+                    }
+                } 
             };
 
             // Evento disparado quando há um erro na conexão
@@ -260,4 +266,37 @@ function connectWebSocket() {
             } else {
                 console.log('Conexão WebSocket não está aberta.');
             }
+}
+        
+function showUnreadNotifications() {
+    fetch(`http://${ip}:4242/api/alerts/Notification/`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Verifica se a resposta contém notificações
+            if (Array.isArray(data)) {
+                const notificationSection = document.querySelector('.alerts-notifications');
+                
+                data.forEach(notification => {
+                    const { description, timeStamps } = notification;
+                    // Adiciona cada notificação ao HTML
+                    notificationSection.innerHTML += `
+                        <div class="notification">
+                            <span class="message">${description}</span>
+                            <span class="timestamp">${timeStamps || 'Data indisponível'}</span>
+                        </div>
+                    `;
+                });
+            } else {
+                console.log("Resposta inesperada do servidor:", data);
+            }
+        })
+        .catch(error => {    
+            console.error("Erro ao buscar notificações:", error); 
+        });   
+}

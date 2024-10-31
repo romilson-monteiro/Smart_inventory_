@@ -13,31 +13,22 @@ const searchResult = document.getElementById('searchResult')
 const close_search_result = document.getElementById('close_search_result');
  
 
-
-
-
-
-
-
 import { ip } from './config/config.js';
 
+// const logoutButton = document.getElementById("logout-button");
+// logoutButton.addEventListener("click", () => {
+//     localStorage.removeItem("token");
+//     localStorage.removeItem("user");
+//     window.location.href = "../HTML/login.html";
 
-const logoutButton = document.getElementById("logout-button");
-logoutButton.addEventListener("click", () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    window.location.href = "../HTML/login.html";
-
-});  // Após sucesso do registro
-
-
-
+// });  // Após sucesso do registro
 
 close_search_result.addEventListener('click', () => {
     searchResult.style.display = 'none';
     document.getElementById('search').value = '';
     getAllUsers();
 });
+
 // ****************************************************************************************************
 // Event Listeners
 // ****************************************************************************************************
@@ -46,29 +37,16 @@ cancel_user_button.addEventListener("click", toggleNewUserForm);
 
 search_button.addEventListener("click", searchUser);
 
-
 document.addEventListener("DOMContentLoaded", (e) => {
     const token = localStorage.getItem("token");
     if (!token) {
         window.location.href = "../HTML/login.html";
     }
-   
-
-
     getAllUsers()
-
 })
 usersTableBody.addEventListener("click", handleUserClick);
 open_new_user_form_button.addEventListener("click", toggleNewUserForm);
 add_new_user_button.addEventListener("click", add_or_edit_user);
-
-
-
-
-
-
-
-
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Funcoes 
@@ -83,13 +61,11 @@ function add_or_edit_user() {
 
     const data = { name, phone, email, role, password };
    
- 
     // Check if you are in edit mode or add mode
     const isEditMode = add_edit_user_form.getAttribute("data-edit-mode") === "true";
     let userId = document.querySelector("#edit_user_id").value;
 
-    
- console.log(data);
+    console.log(data);
 
     // URL for API endpoint
     const url = isEditMode ? `http://${ip}:4242/api/user/${userId}` : `http://${ip}:4242/api/user/register/`;
@@ -155,16 +131,12 @@ function handleUserClick(event) {
         const aruco_name = target.getAttribute("aruco_name");
         window.location.href = `../HTML/aruco.html?aruco_id=${aruco_id}&aruco_name=${aruco_name}`;
     }
-
 }
 
 let add_user_to_table = (id, name, email, phone, role, aruco_id,location_description,location_last_update) => {
     const table_body = document.querySelector("#users_table_body");
-
-
     table_body.innerHTML += `
         <tr>
-           
             <td>${id}</td>
             <td>${name}</td>
             <td>${email}</td>
@@ -184,7 +156,6 @@ let add_user_to_table = (id, name, email, phone, role, aruco_id,location_descrip
 let getAllUsers = () => {
     const baseUrl = `http://${ip}:4242/api/user/`;
     const url = new URL(baseUrl);
-
 
     fetch(url,
         {
@@ -242,7 +213,6 @@ function blurrbackground() {
     left_container.style.filter = "blur(0.79px)";
     right_container.style.pointerEvents = "none";
     left_container.style.pointerEvents = "none";
-
 }
 
 function Noblurrbackground() {
@@ -252,7 +222,6 @@ function Noblurrbackground() {
     left_container.style.filter = "none";
     right_container.style.pointerEvents = "auto";
     left_container.style.pointerEvents = "auto";
-
 }
 function deleteUser(userId) {
     const cancel_btn = document.querySelector("#cancel_btn")
@@ -261,9 +230,6 @@ function deleteUser(userId) {
     confirmation_form.style.display = "flex";
     
     blurrbackground();
-
-
-
 
     cancel_btn.addEventListener("click", (e) => {
         confirmation_form.style.display = "none";
@@ -294,7 +260,6 @@ function deleteUser(userId) {
             .catch(error => {
                 console.error('Error during user deletion:', error);
             });
-
     })
 }
 
@@ -304,12 +269,7 @@ function setEditUserFormData(id) {
     document.querySelector("#title_add_edit_user_form").textContent = "Edit User";
     document.querySelector("#edit_user_id").value = id;
 
-
-
-
-
     const url = `http://${ip}:4242/api/user/${id}`;
-
 
     fetch(url, {
             method: 'GET',
@@ -318,8 +278,6 @@ function setEditUserFormData(id) {
                  'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
         }
-
-
     )
         .then(response => {
             if (!response.ok) {
@@ -341,20 +299,10 @@ function setEditUserFormData(id) {
 
 
             document.querySelector("#new_user_role").value = "super_admin";// selet option role
-
-
-
-          
-
-
-
-
         })
         .catch(error => {
             console.error(`Error: ${error.message}`);
         });
-
-
 }
 
 
@@ -363,7 +311,6 @@ function setEditUserFormData(id) {
 
 
 function toggleNewUserForm() {
-
     if (add_edit_user_form.style.display == "none") {
         add_edit_user_form.style.display = "block";
        blurrbackground();
@@ -374,7 +321,6 @@ function toggleNewUserForm() {
         document.querySelector("#add_new_user_button").textContent = "Add User";
         document.querySelector("#title_add_edit_user_form").textContent = "Add New User";
         Noblurrbackground();
-
     }
 }
 
@@ -386,8 +332,6 @@ let clear_new_user_form = () => {
     document.getElementById('new_user_role').value = '';
     document.getElementById('new_user_password').value = '';
     document.getElementById('edit_user_id').value = '';
-
-
 }
 
 

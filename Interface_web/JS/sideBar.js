@@ -1,3 +1,6 @@
+import { ip } from "./config/config.js";
+let notification_count;
+
 // Função para carregar a sidebar
 function loadSidebar() {
     // HTML da sidebar
@@ -24,7 +27,7 @@ function loadSidebar() {
                 <li class="menu_buttons" id="li_reports"><a href="reports.html"><i class="fas fa-chart-line"></i>
                         Relatórios</a></li>
                 <li class="menu_buttons" id="li_notifications"><a href="notifications.html"><i class="fas fa-bell"></i>
-                        Notificações</a></li>
+                        Notificações</a><p id="notification_count"></p></li>
 
             </ul>
 
@@ -61,13 +64,12 @@ function logout() {
     //limpar user
     localStorage.removeItem("user");
     window.location.href = "../HTML/login.html";
-
-
 }
 
 // Carrega a sidebar quando a página é carregada
 document.addEventListener('DOMContentLoaded', () => {
     loadSidebar()
+    updateNotificationCount()
     // Adiciona o ouvinte de evento ao botão de logout
     const logoutButton = document.getElementById("logout-button");
     if (logoutButton) {
@@ -76,3 +78,28 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Logout button not found.");
     }
 });
+
+export function updateNotificationCount() {
+    const notificationCount = document.getElementById("notification_count");
+    const token = localStorage.getItem('token');
+    
+    fetch(`http://${ip}:4242/api/alerts/NotificationCount`, {
+        method: 'GET',
+        headers: { 'Authorization': `Bearer ${token}` }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        notification_count = data.unreadCount;  // Supondo que o campo retornado seja 'unreadCount'
+        console.log("Notificações não visualizadas:", notification_count);
+        notificationCount.innerHTML = notification_count;
+    })
+    .catch(error => {
+        console.error("Erro ao obter a contagem de notificações:", error);
+    });
+}
+    
