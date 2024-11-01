@@ -1,12 +1,13 @@
 import { ip } from './config/config.js';
-const token = localStorage.getItem("token");
+const token = localStorage.getItem('token');
+window.onload = function () {
+    loadLocations();
+};
+
 // Função para carregar as localizações na tabela
 function loadLocations() {
     const tableBody = document.getElementById('locations_table_body');
     tableBody.innerHTML = '';
-    
-
-
 
     fetch(`http://${ip}:4242/api/Locations`,
         {
@@ -16,7 +17,6 @@ function loadLocations() {
                 'Authorization': `Bearer ${token}`
             }
         }
-
     )
         .then(response => response.json())
         .then(data => {
@@ -35,11 +35,11 @@ function loadLocations() {
                 tableBody.appendChild(tr);
             });
         });
-
-
-
 }
+
+
 const locationsTableBody = document.getElementById('locations_table_body');
+
 locationsTableBody.addEventListener('click', (e) => {
     if (e.target.classList.contains('edit_asset_btn')) {
         const locationId = e.target.closest('tr').children[0].textContent;
@@ -52,14 +52,12 @@ locationsTableBody.addEventListener('click', (e) => {
 });
 
 
-
 // Função para adicionar uma nova localização
 function addLocation(name, floor) {
     const newLocation = {
         name,
         floor
     };
-    
     fetch(`http://${ip}:4242/api/Locations/create`,
          {
         method: 'POST',
@@ -77,18 +75,12 @@ function addLocation(name, floor) {
         .catch(error => {
             console.log('An error occurred');
         });
-
-
-
-
-
     closeForm();
     loadLocations();
 }
 
 // Função para editar uma localização
 function editLocation(id) {
-    
     fetch(`http://${ip}:4242/api/Locations/${id}`,
         {
             method: 'GET',
@@ -109,24 +101,20 @@ function editLocation(id) {
             document.querySelector('.new_form').setAttribute('data-edit-mode', 'true');
             document.getElementById('title_add_edit_location_form').textContent = 'Editar Localização';
             document.querySelector('.new_form').style.display = 'block';
+            document.querySelector('#add_new_location_button').innerHTML = 'Editar Localização';
         })
         .catch(error => {
             console.log('An error occurred');
         });
-
-
-
-   
 }
 
 // Função para atualizar uma localização editada
-function updateLocation(id, name, floor) {
+function updateLocation(id, name, floorValue) {
+    const floor = parseInt(floorValue,10);
     const updatedLocation = {
-        id,
         name,
         floor
     };
-
     fetch(`http://${ip}:4242/api/Locations/${id}`, {
         method: 'PUT',
         headers: {
@@ -135,12 +123,20 @@ function updateLocation(id, name, floor) {
         },
         body: JSON.stringify(updatedLocation)
     })
-        .then(response => response.json())
-        .then(data => {
-        })
-        .catch(error => {
-            console.log('An error occurred');
-        });
+        .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update location');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // console.log('Location updated:', data);
+        // Aqui você pode atualizar o estado da UI ou exibir uma mensagem de sucesso
+    })
+    .catch(error => {
+        console.error('Error updating location:', error);
+        // Aqui você pode exibir uma mensagem de erro na UI
+    });
 
     closeForm();
     loadLocations();
@@ -179,6 +175,7 @@ function closeForm() {
 // Event Listeners
 document.getElementById('create_location_button').addEventListener('click', () => {
     document.querySelector('.new_form').style.display = 'block';
+    document.querySelector('#add_new_location_button').innerHTML = 'Adicionar Localização';
 });
 
 document.getElementById('cancel_button').addEventListener('click', (e) => {
@@ -206,6 +203,4 @@ document.getElementById('add_new_location_button').addEventListener('click', (e)
     }
 });
 
-window.onload = function () {
-    loadLocations();
-};
+

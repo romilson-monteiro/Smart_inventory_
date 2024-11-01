@@ -62,12 +62,13 @@ function getAllassets_movements() {
                     row.innerHTML = `
                         <td>${movement.id ? movement.id : 'N/A'}</td>
                         <td>${movement.asset ? movement.asset.id : 'N/A'}</td>
-                      <td>${movement.lastLocation.description}</td>
-                      <td>${movement.currentLocation.description}</td>
-                      <td>${movement.timeStamps} </td>
+                        <td>${movement.asset ? movement.asset.name : 'N/A'}</td>
+                        <td>${movement.lastLocation.description}</td>
+                        <td>${movement.currentLocation.description}</td>
+                        <td>${movement.timeStamps} </td>
                         
                     `;
-                    assets_movementsTableBody.appendChild(row);
+                    assets_movementsTableBody.prepend(row);
                 });
             }
         })

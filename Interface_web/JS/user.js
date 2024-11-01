@@ -293,7 +293,7 @@ function setEditUserFormData(id) {
             document.querySelector("#new_user_phone_number").value = user.phone;
             document.querySelector("#new_user_email").value = user.email;
             document.querySelector("#new_user_username").value = user.username;
-            document.querySelector("#new_user_password").value = user.password;
+            document.querySelector("#new_user_password").value = '';
 
 
 
@@ -403,6 +403,15 @@ function searchUser() {
             console.log('An error occurred');
         });
 }
+
+document.querySelector("#toggle_password_visibility").addEventListener("click", function() {
+    const passwordInput = document.getElementById("new_user_password");
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+    } else {    
+        passwordInput.type = "password";
+    }
+});
 
 
 

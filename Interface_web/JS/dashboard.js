@@ -1,29 +1,13 @@
 import { ip } from './config/config.js';
-// import { WebSocket } from 'ws';
 
 document.addEventListener("DOMContentLoaded", function () {
     fetchDashboardStatistics();
-    showUnreadNotifications();
-
-
-// Função para atualizar data e hora
-function updateDateTime() {
-    const welcomeSection = document.querySelector('.welcome-section');
-    const date = new Date();
-    const days = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-    const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-    const day = days[date.getDay()];
-    const month = months[date.getMonth()];
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-    welcomeSection.querySelector('#currentDateTime').textContent = `${day}, ${date.getDate()} de ${month} de ${date.getFullYear()}, ${hours}:${formattedMinutes}`;
-}
-updateDateTime();
-setInterval(updateDateTime, 60000);
-connectWebSocket();
-
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+    connectWebSocket();
 });
+
+
 // Fetch dados do dashboard
  function fetchDashboardStatistics() {
     fetch(`http://${ip}:4242/api/statistics/dashboard`, {
@@ -205,6 +189,22 @@ connectWebSocket();
 }
 //{"message":"Statistics retrieved successfully","totalUsers":1,"totalAssets":1,"totalMovements":1,"recentMovements":[{"asset":"Cadeira","previousLocation":"S.1.1","currentLocation":"S.2.13","timestamp":"2024-07-10T18:15:47.000Z"}],"assetsByLocation":{"labels":["S.2.1"],"data":[1]},"assetsByCategory":{"labels":["cadeiras"],"data":[1]},"dailyMovementsChart":{"labels":["2024-07-10"],"data":[1]}}
 
+// Função para atualizar data e hora
+function updateDateTime() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const welcomeSection = document.querySelector('.welcome-section');
+    const date = new Date();
+    const days = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+    const day = days[date.getDay()];
+    const month = months[date.getMonth()];
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    welcomeSection.querySelector('#currentDateTime').textContent = `${day}, ${date.getDate()} de ${month} de ${date.getFullYear()}, ${hours}:${formattedMinutes}`;
+    welcomeSection.querySelector('#welcomeMessage').textContent = `Bem Vindo de volta, ${user.name}`;
+}
+
 let socket;
 let reconnectInterval = 5000; // Tempo entre tentativas de reconexão
 
@@ -222,7 +222,6 @@ function connectWebSocket() {
             socket.onmessage = function (event) {
                 
                 const parsedData = JSON.parse(event.data);
-                console.log(parsedData);
 
                 if (parsedData && parsedData.type == "new_move") {
                     const data = parsedData.data;
@@ -231,12 +230,8 @@ function connectWebSocket() {
                         const tableBody = document.querySelector('#lastMovementsTable tbody');
                         const row = document.createElement('tr');
                         row.innerHTML = `<td>${data.asset}</td><td>${data.last_location}</td><td>${data.current_location}</td><td>${data.timeStamps}</td>`;
-                        tableBody.appendChild(row);
-                        // Atualizar tabela de notificações
-                        const notificationSection = document.querySelector('.alerts-notifications');
-                        notificationSection.innerHTML += `<div class="notification"><span class="message">${data.description}</span><span class="timestamp">${data.timeStamps || 'Data indisponível'}</span></div>`
-                        // notificationSection.innerHTML.appendChild(notification);
-                    } catch(error) {
+                        tableBody.prepend(row);
+                    } catch (error) {
                         console.log("Mensagem JSON inválida")
                         return
                     }
@@ -257,46 +252,8 @@ function connectWebSocket() {
             };
         }
 
-        // Função para enviar uma mensagem ao servidor
-        function sendMessage() {
-            if (socket && socket.readyState === WebSocket.OPEN) {
-                const message = { content: 'Olá, servidor!' };
-                socket.send(JSON.stringify(message));
-                console.log('Mensagem enviada:', message);
-            } else {
-                console.log('Conexão WebSocket não está aberta.');
-            }
-}
-        
-function showUnreadNotifications() {
-    fetch(`http://${ip}:4242/api/alerts/Notification/`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            // Verifica se a resposta contém notificações
-            if (Array.isArray(data)) {
-                const notificationSection = document.querySelector('.alerts-notifications');
-                
-                data.forEach(notification => {
-                    const { description, timeStamps } = notification;
-                    // Adiciona cada notificação ao HTML
-                    notificationSection.innerHTML += `
-                        <div class="notification">
-                            <span class="message">${description}</span>
-                            <span class="timestamp">${timeStamps || 'Data indisponível'}</span>
-                        </div>
-                    `;
-                });
-            } else {
-                console.log("Resposta inesperada do servidor:", data);
-            }
-        })
-        .catch(error => {    
-            console.error("Erro ao buscar notificações:", error); 
-        });   
-}
+   
+
+document.querySelector("#verMais_button").addEventListener("click", function () {
+    window.location.href = "../HTML/movements.html";
+})
