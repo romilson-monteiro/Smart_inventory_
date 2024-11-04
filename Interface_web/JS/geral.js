@@ -1,19 +1,5 @@
 import { ip } from './config/config.js';
 
-const logoutButton = document.getElementById("logout-button");
-logoutButton.addEventListener("click", () => {
-  logout();
-});
-
-function logout() {
-    localStorage.removeItem("token");
-    //limpar user
-    localStorage.removeItem("user");
-    window.location.href = "../HTML/login.html";
-
-
-}
-
 document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
     if (!token) {

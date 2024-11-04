@@ -48,10 +48,6 @@ client.on('connect', () => {
   );
 });
 
-
-
-
-
 client.on('message', async (topic, message) => {
   if (topic === 'pj2/uhftag') {
     let parsedMessage;
