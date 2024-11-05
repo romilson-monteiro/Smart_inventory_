@@ -328,6 +328,121 @@ table {
   
 }
 
+/* Notifications */
+
+ .notifications,
+        .logs {
+            margin-bottom: 40px;
+        }
+
+        .notifications h2,
+        .logs h2 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .notification-list,
+        .log-list {
+            margin-top: 20px;
+        }
+
+        .notification {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+
+        .notification .icon {
+            margin-right: 15px;
+            font-size: 1.5em;
+            color: #2575fc;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .notification-action {
+            padding: 5px 10px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2575fc;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .notification-action:hover {
+            background-color: #1e5ab4;
+        }
+
+        .notification-action i {
+            margin-right: 5px;
+        }
+
+
+        .message {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .timestamp {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+
+        .log {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    border-left-width: 4px;
+    border-left-style: solid;
+}
+
+.log.create {
+    border-left-color: #28a745; /* Verde para criação */
+}
+
+.log.delete {
+    border-left-color: #dc3545; /* Vermelho para deleção */
+}
+
+.log.update {
+    border-left-color: #ffc107; /* Amarelo para atualização */
+}
+
+.log.moviment {
+    border-left-color: #17a2b8; /* Azul para movimentação */
+}
+
+.message {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.timestamp {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.notification.viewed {
+    opacity: 0.6; /* Exemplo de estilo para notificações visualizadas */
+}
+
+
  
 
  

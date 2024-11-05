@@ -4,6 +4,7 @@ import { LocationModel } from "../models/location.model.js";
 import { CategoryGrupeModel } from "../models/CategoryGrupe.model.js";
 import { MovimentsModel } from "../models/moviments.model.js";
 import { UsersModel } from "../models/users.model.js";
+import { NotificationsModel } from "../models/notification.model.js";
 import { addUHFTag } from "../utils/mqttListener.js";
 import { WebSocket } from 'ws';
 import { wss } from '../index.js';
@@ -576,9 +577,9 @@ export async function addMoviment_uhf(data) {
             throw new Error("No data provided");
         }
 
-        const { uhftag, location_id, timestamp, detection_type} = data;
+        const { uhftag, location_id, timestamp } = data;
         
-        if (uhftag === undefined || location_id === undefined || timestamp === undefined || detection_type === undefined) {
+        if (uhftag === undefined || location_id === undefined || timestamp === undefined) {
             throw new Error("Missing required fields in data");
         }
 
@@ -608,6 +609,7 @@ export async function addMoviment_uhf(data) {
 
         const description = `Movimentação de ${object.name} de ${last_location.name} para ${current_location.name}`;
         const timeStamps = timestamp;
+       
         const type = "entrada";
         const moviment = await MovimentsModel.create({
             asset_id: object.id,
@@ -615,7 +617,7 @@ export async function addMoviment_uhf(data) {
             current_location,
             description,
             timeStamps,
-            type,
+            type: "UHF",
         });
 
        
@@ -641,6 +643,7 @@ export async function addMoviment_uhf(data) {
             currentLocation: current_location.name,
             timestamp: moviment.timeStamps,
         };
+
 
 
 
@@ -853,13 +856,6 @@ export const getAllMoviments = async (req, res) => {
                     { model: LocationModel, as: 'currentLocation' },
                 ],
             });
-
-
-
-
-
-
-
         return res.json(moviments);
     } catch (error) {
         console.error('Error listing moviments:', error);

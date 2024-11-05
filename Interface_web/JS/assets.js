@@ -1,6 +1,3 @@
-
-
-
     // ****************************************************************************************************
     // Declaracoes de variaveis globais
     // ****************************************************************************************************
@@ -23,20 +20,17 @@
 
 
     let editMode = false;
-
-
-
-
-
     // ****************************************************************************************************
     // listiners
     // ****************************************************************************************************
+    document.addEventListener("DOMContentLoaded", (e) => {
+            getAllAssets();
+        });
 
     selectedPiso.addEventListener('change', (e) => {
         const piso = e.target.value;
         getAllOLocation(piso);
     });
-
 
     close_search_result.addEventListener('click', () => {
         searchResult.style.display = 'none';
@@ -62,10 +56,6 @@
 
 
             window.location.href = `aruco.html?aruco_id=${aruco_id}&aruco_name=${aruco_name}`;
-
-
-
-
         } else {
             const assetId = e.target.closest('tr').children[0].textContent;
             window.location.href = `asset-detail.html?id=${assetId}`;
@@ -78,7 +68,6 @@
         newAssetForm.setAttribute('assetId', '');
         editMode = false;
       
-        
         getAllObjectsTypes();
     });
 
@@ -98,14 +87,6 @@
     searchButton.addEventListener('click', () => {
         searchAsset();
     });
-
-
-
-
-    document.addEventListener("DOMContentLoaded", (e) => {
-        getAllAssets();
-    });
-
 
     document.querySelector("#btn_read_uhf").addEventListener("click", () => {
         readUhfTag()
@@ -290,20 +271,10 @@
         document.getElementById('new_asset_type').value = category_id;
         document.getElementById('Piso').value = piso;
         document.getElementById('Piso').dispatchEvent(new Event('change'));
-
-
         document.getElementById('new_asset_location').value = location_id;
-
-
-
-
-
-
-
-
-
-
         document.getElementById('new_asset_description').value = description;
+        document.getElementById('add_new_asset_button').innerHTML = 'Editar Ativo';
+
     }
 
     function addAsset() {
@@ -311,10 +282,8 @@
         const uhf_tag = document.getElementById('new_asset_uhf_tag').value;
         const category_id = document.getElementById('new_asset_type').value;
         const location_id = document.getElementById('new_asset_location').value;
-
+        document.getElementById('add_new_asset_button').innerHTML = 'Adicionar Ativo';
         const description = document.getElementById('new_asset_description').value;
-
-
 
         fetch(`http://${ip}:4242/api/objects/create`, {
             method: 'POST',
@@ -401,11 +370,6 @@
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
-
-
-
-
-
         })
             .then(response => response.json())
             .then(data => {

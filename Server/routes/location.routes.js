@@ -13,6 +13,7 @@ LocationRoutes.delete("/:id", authRequired,  deleteLocation);
 LocationRoutes.get("/", authRequired, getAllLocations);
 
 LocationRoutes.get("/:id", authRequired, getLocationsbyId);
+//http://localhost:4242/api/Locations/:id
 LocationRoutes.put("/:id", authRequired,  updateLocation);
 
 
