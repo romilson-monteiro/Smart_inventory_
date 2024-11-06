@@ -1,12 +1,10 @@
 import { ip } from './config/config.js';
 
-
 document.addEventListener("DOMContentLoaded", function () {
     fetchStatistics();
-
 });
-// Fetch dados to report grapical and table
- function fetchStatistics() {
+
+function fetchStatistics() {
     fetch(`http://${ip}:4242/api/statistics/report`, {
             method: 'GET',
             headers: {
@@ -15,61 +13,36 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
         .then(response => response.json())
-
-        
         .then(data => {
             console.log(data);
 
-              // Análise de Movimentações
-              var movementAnalysisData = {
-                  labels: data.movementAnalysis.labels,
-                  datasets: [{
-                          label: 'Entrada',
-                          backgroundColor: '#2ecc71',
-                          borderColor: '#2ecc71',
-                          data: data.movementAnalysis.data.entrada,
-                          fill: false
-                      },
-                      {
-                          label: 'Saída',
-                          backgroundColor: '#e74c3c',
-                          borderColor: '#e74c3c',
-                          data: data.movementAnalysis.data.saida,
-                          fill: false
-                      },
-                      {
-                          label: 'Transferência',
-                          backgroundColor: '#f39c12',
-                          borderColor: '#f39c12',
-                          data: data.movementAnalysis.data.transferencia,
-                          fill: false
-                      }
-                  ]
-              };
+            // Relatório de Ativos por Categoria
+            var assetsReportData = {
+                labels: data.assetsReport.labels,
+                datasets: [{
+                    label: 'Quantidade',
+                    backgroundColor: '#2575fc',
+                    borderColor: '#2575fc',
+                    data: data.assetsReport.data
+                }]
+            };
 
-              var movementAnalysisCtx = document.getElementById('movementAnalysisChart').getContext('2d');
+            var assetsReportCtx = document.getElementById('assetsReportChart').getContext('2d');
+            new Chart(assetsReportCtx, {
+                type: 'bar',
+                data: assetsReportData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Permite altura fixa
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
 
-              var movementAnalysisChart = new Chart(movementAnalysisCtx, {
-                  type: 'line',
-                  data: movementAnalysisData,
-                  options: {
-                      responsive: true,
-                      scales: {
-                          y: {
-                              beginAtZero: true
-                          }
-                      }
-                  }
-              });
-
-              // Relatório de Ativos
-
-
-
-            
-
-            
-            // Ativos por Localização
+            // Distribuição de Ativos por Localização
             var assetsByLocationData = {
                 labels: data.assetsByLocation.labels,
                 datasets: [{
@@ -80,13 +53,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 }]
             };
 
-
             var assetsByLocationCtx = document.getElementById('assetsByLocationChart').getContext('2d');
-            var assetsByLocationChart = new Chart(assetsByLocationCtx, {
+            new Chart(assetsByLocationCtx, {
                 type: 'pie',
                 data: assetsByLocationData,
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
                             position: 'top',
@@ -101,41 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 }
             });
-
-            // Ativos por Categoria
-              var assetsReportData = {
-                  labels: data.assetsReport.labels,
-                  datasets: [{
-                      label: 'Quantidade',
-                      backgroundColor: '#2575fc',
-                      borderColor: '#2575fc',
-                      data: data.assetsReport.data
-                  }]
-              };
-
-              var assetsReportCtx = document.getElementById('assetsReportChart').getContext('2d');
-
-              var assetsReportChart = new Chart(assetsReportCtx, {
-                  type: 'bar',
-                  data: assetsReportData,
-                  options: {
-                      responsive: true,
-                      scales: {
-                          y: {
-                              beginAtZero: true
-                          }
-                      }
-                  }
-              });
-
-              
-
-
-
-
-        
-           
-        
         })
         .catch((error) => {
             console.error('Error:', error);

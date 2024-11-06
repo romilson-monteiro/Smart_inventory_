@@ -7,27 +7,18 @@ import { wss } from '../index.js';
 
 
 // Função para enviar mensagens para todos os clientes conectados
-
-
-function broadcastMessage(type,data) {
-    const message = { 
-      type: type, 
-      data 
-    };
-
-    const jsonString = JSON.stringify(message);
+function broadcastMessage(data) {
+    const message = JSON.stringify(data);
     wss.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
-          try {
-                console.log(jsonString);
-                client.send(jsonString);
+            try {
+                client.send(message);
             } catch (err) {
                 console.error('Erro ao enviar mensagem:', err);
             }
         }
     });
 }
-
 
 dotenv.config();
 
@@ -88,25 +79,14 @@ client.on('message', async (topic, message) => {
       return;
     }
 
-    // Converte o timestamp para o formato correto
-        const isoTimestamp = convertToISO8601(timestamp);
-        console.log(`Mensagem recebida - Timestamp: ${isoTimestamp}, Tag UHF: ${uhftag}, Room ID: ${location_id}`);
+    // Chama a função para enviar a notificação para todos os clientes conectados
+    broadcastMessage(parsedMessage);
 
-        // Cria um novo objeto com o timestamp formatado
-        const dataToSend = {
-            timestamp: isoTimestamp,
-            uhftag,
-            location_id
-        };
-
-        // Adiciona a movimentação com os dados formatados
-    const data = await addMoviment_uhf(dataToSend);
     
-    if (data) {
-      console.log(data);
-      broadcastMessage("new_move", data);
-    }
-      
+    console.log(`Mensagem recebida - Timestamp: ${timestamp}, Tag UHF: ${uhftag}, Room ID: ${location_id}`);
+    addMoviment_uhf(parsedMessage);
+
+    
   } else if (topic === 'pj2/CVmoviment') {
     let messageJson;
     try {
@@ -115,11 +95,7 @@ client.on('message', async (topic, message) => {
       console.log('Mensagem JSON inválida recebida:', error);
       return;
     }
-    const data = await addMoviment_CV(messageJson);
-    if (data) {
-      console.log(data);
-      broadcastMessage("new_move", data);
-    }
+    addMoviment_CV(messageJson);
   }
 
 }
@@ -161,15 +137,4 @@ export function addUHFTag() {
 
     client.on('message', messageHandler);
   });
-}
-
-function convertToISO8601(timestamp) {
-    // Divide o timestamp em data e hora
-    const [datePart, timePart] = timestamp.split(':');
-    const [day, month, year] = datePart.split('-');
-
-    // Cria uma nova data no formato ISO 8601
-    const isoDate = `${year}-${month}-${day}T${timePart}:00`; // Adiciona os segundos
-
-    return isoDate;
 }
