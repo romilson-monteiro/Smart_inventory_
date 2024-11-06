@@ -43,22 +43,30 @@ export const updateLocation = async (req, res) => {
       const { floor, name } = req.body;
       const user_id = req.user.id;
 
-  
       const Location = await LocationModel.findByPk(id);
       if (!Location) {
+        console.error("Location not found with ID:", id);
         return res.status(404).json({ message: "Location not found" });
       }
-  
+
       const user = await UsersModel.findByPk(user_id);
-      await LogsModel.create({ description: `${user.name} (${user.id}) atualizou a localização ${location.name} - Piso ${location.floor} para ${name} - Piso ${floor}`  , timeStamps: new Date() , event_type: "update" });
-      
+      if (!user) {
+        console.error("User not found with ID:", user_id);
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      await LogsModel.create({
+        description: `${user.name} (${user.id}) atualizou a localização ${Location.name} - Piso ${Location.floor} para ${name} - Piso ${floor}`,
+        timeStamps: new Date(),
+        event_type: "update"
+      });
+
       Location.floor = floor;
       Location.name = name;
       Location.description = `${name} - Piso ${floor}`;
-  
+
       await Location.save();
-  
-      
+
       return res.json({
         id: Location.id,
         floor: Location.floor,
@@ -69,7 +77,8 @@ export const updateLocation = async (req, res) => {
       console.error("Error updating Location:", error);
       return res.status(500).json({ message: "Failed to update Location" });
     }
-  };
+};
+
 
 
 
