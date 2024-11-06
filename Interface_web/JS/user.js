@@ -292,13 +292,16 @@ function setEditUserFormData(id) {
             document.querySelector("#new_user_name").value = user.name;
             document.querySelector("#new_user_phone_number").value = user.phone;
             document.querySelector("#new_user_email").value = user.email;
-            document.querySelector("#new_user_username").value = user.username;
+            // document.querySelector("#new_user_username").value = user.username;
             document.querySelector("#new_user_password").value = '';
-
-
-
-
-            document.querySelector("#new_user_role").value = "super_admin";// selet option role
+            const roleMapping = {
+                admin_user: "admin",
+                user: "user",
+                super_admin: "super_admin"
+            };
+            if (roleMapping[user.role]) {
+                document.querySelector("#new_user_role").value = roleMapping[user.role];
+            } 
         })
         .catch(error => {
             console.error(`Error: ${error.message}`);

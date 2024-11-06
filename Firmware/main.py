@@ -7,27 +7,25 @@ import json
 
 # Configurações MQTT
 MQTT_BROKER = "broker.hivemq.com"
-MQTT_TOPIC = "object/movement"
+MQTT_TOPIC = "pj2/CVmoviment"
 
 # Cliente MQTT
-mqtt_client = mqtt.Client()
+mqtt_client = mqtt.Client(transport="tcp")
 
 # Configurações YOLOv8
 CONF_THRESHOLD = 0.5  # Limiar de confiança para detecção
 NMS_THRESHOLD = 0.4   # Limiar de Non-Maxima Suppression
 
 # Caminhos e arquivos YOLOv8
-weights_path = "c:/Users/vanil/3-ANO/2_Semestre/Romilsom_Projeto_2/Firmware/yolov8n.pt"
-classes_file = "c:/Users/vanil/3-ANO/2_Semestre/Romilsom_Projeto_2/Firmware/coco.names"
+weights_path = "c:/Users/User/Desktop/Smart_inventory_/Firmware/yolov8n.pt"
+classes_file = "C:/Users/User/Desktop/Smart_inventory_/Firmware/coco.names"
 
 # Tamanho desejado para os vídeos
 VIDEO_WIDTH = 640
 VIDEO_HEIGHT = 480
 
 # Lista de vídeos com caminho e ID de localização
-videos = [ {"path": 0, "Location_local_id": 17},
-
-]
+videos = [ {"path": 0, "Location_local_id": 17}]
 
 # Carregar classes
 with open(classes_file, "r") as f:
