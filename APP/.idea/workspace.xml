@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7580fc51-5b8f-4398-a52f-e19fbac8602e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/.idea/migrations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/androidTest/java/com/example/smart_invertory_mapp/ExampleInstrumentedTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/Accesses.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/Adapters/AccessListAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/DAO/LoggedUserDao.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/Dataclasses/AccessItem.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/Enteties/LoggedUser.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/Home.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/MainActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/Perfil.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/api/Access.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/api/EndPoints.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/api/LoginRequest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/api/LoginResponse.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/api/OutPost.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/api/ServiceBuilder.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/api/User.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/db/Db.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/db/LoggedUserRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/ui/theme/Color.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/ui/theme/Theme.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/ui/theme/Type.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/java/com/example/smart_invertory_mapp/viewModel/LoggedUserViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/backgroud_perfil.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/cartao_formato.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/email_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/finger.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/fundo_gradiente.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/ic_acept.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/ic_arrow_down.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/ic_nfc.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/ic_rejected.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/img_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/img_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/img_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/img_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/img_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/img_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/lock_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/nfc.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/perfil_placeholder.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/profile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/recentaces.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/rounded_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/drawable/spinner_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/layout/acess_linha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/layout/activity_accesses.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/layout/activity_home.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/layout/activity_perfil.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/main/res/xml/network_security_config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/app/src/test/java/com/example/smart_invertory_mapp/ExampleUnitTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/gradle/libs.versions.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Mobile_APP/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/other.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/other.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/md5-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/checksums/sha1-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/dependencies-accessors/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/vcs-1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/workspace-id.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/workspace-id.txt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/APP.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/other.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/8.5/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/8.5/checksums/md5-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/8.5/checksums/sha1-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/8.5/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/8.5/dependencies-accessors/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/8.5/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/8.5/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/8.5/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/8.5/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/8.5/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/8.5/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/file-system.probe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gradle/vcs-1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/app.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/other.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/local.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/aplicacaomovel/ExampleInstrumentedTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/Accesses.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/Adapters/AccessListAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/DAO/LoggedUserDao.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/Dataclasses/AccessItem.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/Enteties/LoggedUser.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/Home.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/HostApduService.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/Perfil.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/api/Access.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/api/EndPoints.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/api/LoginRequest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/api/LoginResponse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/api/OutPost.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/api/ServiceBuilder.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/api/User.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/db/Db.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/db/LoggedUserRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/aplicacaomovel/viewModel/LoggedUserViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/backgroud_perfil.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/cartao_formato.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/email_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/finger.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/fundo_gradiente.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_acept.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_arrow_down.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_nfc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_rejected.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/img.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/img_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/img_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/img_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/img_4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/img_5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/img_6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/lock_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/nfc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/perfil_placeholder.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/profile.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/recentaces.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/spinner_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acess_linha.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_accesses.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_perfil.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/apduservice.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/backup_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/network_security_config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/example/aplicacaomovel/ExampleUnitTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/previw/addEdit.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/previw/app.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/previw/assetList.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/previw/assetdetails.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/previw/dassboard.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/previw/futuresweb.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/previw/profile.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Firmware/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Firmware/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Interface_web/HTML/categories.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Interface_web/HTML/categories.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Interface_web/HTML/reports.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Interface_web/HTML/reports.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Interface_web/JS/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Interface_web/JS/config/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/node_modules/.pnpm/server@file+/node_modules/server/controllers/objects.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/node_modules/.pnpm/server@file+/node_modules/server/controllers/objects.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/node_modules/.pnpm/server@file+/node_modules/server/routes/location.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/node_modules/.pnpm/server@file+/node_modules/server/routes/location.routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/node_modules/server/controllers/objects.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/node_modules/server/controllers/objects.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/node_modules/server/routes/location.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/node_modules/server/routes/location.routes.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="KotlinScriptingSettings">
+    <scriptDefinition className="org.jetbrains.kotlin.scripting.resolve.KotlinScriptDefinitionFromAnnotatedTemplate" definitionName="KotlinBuildScript">
+      <order>2147483647</order>
+    </scriptDefinition>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2mQchVQarFeTg8ICavGkrzxPVeT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/Desktop/Smart_inventory_/APP&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StandaloneScriptsStorage">
+    <option name="files">
+      <set>
+        <option value="$PROJECT_DIR$/build.gradle.kts" />
+      </set>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7580fc51-5b8f-4398-a52f-e19fbac8602e" name="Changes" comment="" />
+      <created>1727012359566</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1727012359566</updated>
+    </task>
+    <servers />
+  </component>
+</project>

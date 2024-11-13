@@ -661,9 +661,8 @@ export async function addMoviment_CV(data) {
         const { aruco_id, object_class, location_id, confidence, box } = data;
         const timestamp = new Date();
 
-        if (aruco_id === undefined || object_class === undefined || location_id === undefined || confidence === undefined || box === undefined) {
-            throw new Error("Missing required fields in data");
-
+        if (aruco_id === undefined || object_class === undefined || location_id === undefined || confidence === undefined) {
+            throw new Error("Missing required fields in data")
         }
 
         if ( object_class == "pessoa" ) {

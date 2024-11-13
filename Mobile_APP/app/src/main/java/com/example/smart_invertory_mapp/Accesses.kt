@@ -1,4 +1,4 @@
-package com.example.aplicacaomovel
+package com.example.smart_invertory_mapp
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,12 +8,12 @@ import android.widget.Spinner
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.aplicacaomovel.Adapters.AccessListAdapter
+import com.example.smart_invertory_mapp.Adapters.AccessListAdapter
 import com.example.aplicacaomovel.Dataclasses.AccessItem
 import com.example.aplicacaomovel.api.Access
 import com.example.aplicacaomovel.api.EndPoints
 import com.example.aplicacaomovel.api.ServiceBuilder
-import com.example.aplicacaomovel.db.AppDatabase
+import com.example.smart_invertory_mapp.db.AppDatabase
 import com.example.aplicacaomovel.db.LoggedUserRepository
 import retrofit2.Call
 import retrofit2.Callback

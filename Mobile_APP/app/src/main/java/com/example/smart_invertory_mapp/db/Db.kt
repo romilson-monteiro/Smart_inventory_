@@ -1,4 +1,4 @@
-package com.example.aplicacaomovel.db
+package com.example.smart_invertory_mapp.db
 
 import android.content.Context
 import androidx.room.Database

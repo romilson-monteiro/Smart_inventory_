@@ -1,8 +1,7 @@
-package com.example.aplicacaomovel
+package com.example.smart_invertory_mapp
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.nfc.NfcAdapter
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -10,19 +9,18 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ComponentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.aplicacaomovel.Adapters.AccessListAdapter
+import com.example.smart_invertory_mapp.Adapters.AccessListAdapter
 import com.example.aplicacaomovel.Dataclasses.AccessItem
 import com.example.aplicacaomovel.Enteties.LoggedUser
 import com.example.aplicacaomovel.api.Access
 import com.example.aplicacaomovel.api.EndPoints
 import com.example.aplicacaomovel.api.ServiceBuilder
-import com.example.aplicacaomovel.db.AppDatabase
+import com.example.smart_invertory_mapp.db.AppDatabase
 import com.example.aplicacaomovel.db.LoggedUserRepository
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -66,8 +64,6 @@ class Home : ComponentActivity() {
 
         // Configurar botões e outros elementos de UI
         setupUiElements()
-
-        initializeNfc()
     }
 
     private fun setupAccessListRecyclerView(id: Int) {
@@ -141,27 +137,6 @@ class Home : ComponentActivity() {
         userName.text = "${user.firstName} ${user.lastName}"
         emailTextView.text = user.email
         accessLevel.text = "Nivel de acesso:" + user.accessLevel.toString() + "/5"
-    }
-
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
-    private fun initializeNfc() {
-        val nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-        if (nfcAdapter == null) {
-        } else {
-            if (!nfcAdapter.isEnabled) {
-
-            } else {
-
-                startNfcService()
-            }
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
-    private fun startNfcService() {
-        // Start your HCE service
-        val intent = Intent(this, MyHostApduService::class.java)
-        startService(intent)
     }
 }
 

@@ -1,7 +1,0 @@
-<!-- custom_spinner_background.xml -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@android:color/white" /> <!-- Background color -->
-    <corners android:radius="8dp" />  <stroke
-        android:width="2dp"
-    android:color="@color/azul_marinho" />
-</shape>

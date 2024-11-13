@@ -1,15 +1,14 @@
-package com.example.aplicacaomovel
+package com.example.smart_invertory_mapp
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.aplicacaomovel.Enteties.LoggedUser
-import com.example.aplicacaomovel.db.AppDatabase
+import com.example.smart_invertory_mapp.db.AppDatabase
 import com.example.aplicacaomovel.db.LoggedUserRepository
 import kotlinx.coroutines.launch
 

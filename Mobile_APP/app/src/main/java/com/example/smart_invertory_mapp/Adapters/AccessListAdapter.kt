@@ -1,4 +1,4 @@
-package com.example.aplicacaomovel.Adapters
+package com.example.smart_invertory_mapp.Adapters
 
 
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aplicacaomovel.Dataclasses.AccessItem
-import com.example.aplicacaomovel.R
+import com.example.smart_invertory_mapp.R
 
 class AccessListAdapter(private val accessList: ArrayList<AccessItem>) :
     RecyclerView.Adapter<AccessListAdapter.AccessViewHolder>() {

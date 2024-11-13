@@ -1,4 +1,4 @@
-package com.example.aplicacaomovel
+package com.example.smart_invertory_mapp
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -16,7 +16,7 @@ import com.example.aplicacaomovel.api.EndPoints
 import com.example.aplicacaomovel.api.LoginRequest
 import com.example.aplicacaomovel.api.LoginResponse
 import com.example.aplicacaomovel.api.ServiceBuilder
-import com.example.aplicacaomovel.db.AppDatabase
+import com.example.smart_invertory_mapp.db.AppDatabase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
