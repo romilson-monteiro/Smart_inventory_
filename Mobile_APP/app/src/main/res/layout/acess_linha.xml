@@ -1,0 +1,64 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/firstAccessEntry"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/latestAccessHeader"
+    android:layout_marginBottom="20dp"
+    android:layout_marginHorizontal="10dp"
+    android:background="@drawable/rounded_background"
+    android:padding="6dp"
+    >
+
+    <ImageView
+        android:id="@+id/accessIcon"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_alignParentStart="true"
+
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/nfc"
+        android:tint="@color/white" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/roomName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Room name"
+            android:textColor="#FFF"
+
+            android:textSize="22dp" />
+
+        <TextView
+            android:id="@+id/accessTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/roomName"
+
+            android:layout_centerHorizontal="true"
+            android:text="2024-01-08 20:08:13"
+            android:textColor="#FFF"
+
+            android:textSize="15dp" />
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/accessStatus"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_acept" />
+
+</RelativeLayout>
+
