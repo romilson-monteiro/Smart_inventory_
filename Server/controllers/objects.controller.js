@@ -939,3 +939,48 @@ export const getAssetsByRoomReport = async (req, res) => {
         return res.status(500).json({ message: 'Failed to generate assets by room report', error });
     }
 };
+
+
+
+
+// Controller to fetch asset movements between start and end dates
+export const getMovementsByDateRange = async (req, res) => {
+    try {
+        //ects/report/movements-by-date-range?startDate=2024-01-31&endDate=2024-11-08 
+        const { startDate, endDate } = req.query;
+
+        // Ensure the date parameters are provided and valid
+        if (!startDate || !endDate) {
+            return res.status(400).json({ message: "Start date and end date are required." });
+        }
+
+        // Parse the dates to ensure they are in the correct format
+        const parsedStartDate = new Date(startDate);
+        const parsedEndDate = new Date(endDate);
+
+        if (isNaN(parsedStartDate.getTime()) || isNaN(parsedEndDate.getTime())) {
+            return res.status(400).json({ message: "Invalid date format." });
+        }
+
+        // Fetch the movements within the specified date range
+        const movements = await MovimentsModel.findAll({
+            where: {
+                timeStamps: {
+                    [Op.between]: [parsedStartDate, parsedEndDate],
+                },
+            },
+            include: [
+                { model: ObjectsModel, as: 'asset' },
+                { model: LocationModel, as: 'lastLocation' },
+                { model: LocationModel, as: 'currentLocation' },
+            ],
+            order: [['timeStamps', 'DESC']],
+        });
+
+        // Return the movements data
+        return res.json(movements);
+    } catch (error) {
+        console.error('Error fetching movements by date range:', error);
+        return res.status(500).json({ message: 'Failed to fetch movements by date range', error });
+    }
+};

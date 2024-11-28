@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { create, list, createCategory, deleteObject, MovimentsSearch,getMovimentsByObjectId, deleteCategory, getAllCategorys,  
     getObjectById, updateObject, ObjectSearch, createCategoryGroup, getAllMoviments, getAllCategoryGroups,deleteCategoryGroup, 
-     getCategoryGroupById,updateCategoryGroup ,updateCategory,getCategoryById,  readUhfTag, getCompleteInventoryReport, getAssetsByRoomReport
+     getCategoryGroupById,updateCategoryGroup ,updateCategory,getCategoryById,  readUhfTag, getCompleteInventoryReport, getAssetsByRoomReport, getMovementsByDateRange
 } from "../controllers/objects.controller.js";
 import { authRequired } from "../utils/jwt.js";
 const objectsRoutes = Router();
@@ -74,5 +74,6 @@ objectsRoutes.get("/movements/MovimentsByObjectId/:id", authRequired, getMovimen
 //http://localhost:4242/api/objects/report/inventory-complete
 objectsRoutes.get('/report/inventory-complete', getCompleteInventoryReport);
 objectsRoutes.get('/report/assets-by-room', getAssetsByRoomReport);
+objectsRoutes.get('/report/movements-by-date-range', getMovementsByDateRange);
 
 export {objectsRoutes}

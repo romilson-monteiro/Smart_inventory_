@@ -9,13 +9,13 @@
     <script type="module" src="../JS/geral.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    
+
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-    
+
 
     <style>
         .report-list {
@@ -91,7 +91,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
             margin-left: 10px;
-            
+
         }
 
         .btn:hover {
@@ -260,15 +260,43 @@
             background-color: #ccc;
             cursor: not-allowed;
         }
-
-        
-
     </style>
 </head>
 
 <body>
     <div class="left_container">
         <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../img/logo.png" alt="Logo">
+                <span class="title">Smart Inventory</span>
+            </div>
+            <ul class="menu">
+                <span class="menu-title">Main Menu</span>
+                <li class="menu_buttons " id="li_dashboard"><a href="dashboard.html"><i
+                            class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="menu_buttons" id="li_users"><a href="users.html"><i class="fas fa-user"></i> utilizadores</a>
+                </li>
+                <li class="menu_buttons " id="li_assets"><a href="assets.html"><i class="fas fa-box"></i>
+                        Ativos </a></li>
+                <li class="menu_buttons" id="li_categories"><a href="categories.html"><i class="fas fa-boxes"></i>
+                        Categorias</a></li>
+
+                <li class="menu_buttons" id="li_movements"><a href="movements.html"><i class="fas fa-exchange-alt"></i>
+                        Movimentos</a></li>
+                <li class="menu_buttons" id="li_locations"><a href="location.html"><i class="fas fa-map-marker"></i>
+                        Localizações</a>
+                <li class="menu_buttons ativo" id="li_reports"><a href="reports.html"><i class="fas fa-chart-line"></i>
+                        Relatórios</a></li>
+                <li class="menu_buttons" id="li_notifications"><a href="notifications.html"><i class="fas fa-bell"></i>
+                        Notificações</a></li>
+
+            </ul>
+
+
+
+            <div class="sidebar-footer">
+                <button class="logout-button" id="logout-button">Logout <i class="fas fa-sign-out-alt"></i></button>
+            </div>
         </aside>
     </div>
 
@@ -366,17 +394,17 @@
                 </div>
             </div>
 
-                  <!-- Modal for preview -->
-    <div class="modal" id="previewModal">
-        <div class="modal-content">
-            <h2 id="modalTitle">Pré-visualização</h2>
-            <button class="close-btn" id="closeModal">Fechar</button>
-            <div id="modalContent">Conteúdo do relatório gerado...</div>
-            
-        </div>
-    </div>
+            <!-- Modal for preview -->
+            <div class="modal" id="previewModal">
+                <div class="modal-content">
+                    <h2 id="modalTitle">Pré-visualização</h2>
+                    <button class="close-btn" id="closeModal">Fechar</button>
+                    <div id="modalContent">Conteúdo do relatório gerado...</div>
 
-            
+                </div>
+            </div>
+
+
         </main>
     </div>
 
@@ -385,116 +413,157 @@
     <script type="module" src="../JS/geral.js"></script>
 
     <script>
-    const ip = "localhost";
+        const ip = "192.168.1.5";
+        document.addEventListener("DOMContentLoaded", () => {
+            // Preview buttons
+            const previewInventory = document.getElementById("preview-inventory");
+            const previewRoomAssets = document.getElementById("preview-room-assets");
+            const previewMovements = document.getElementById("preview-movements");
 
-    // Add event listeners
-    document.addEventListener("DOMContentLoaded", () => {
-    // Preview buttons
-    const previewInventory = document.getElementById("preview-inventory");
-    const previewRoomAssets = document.getElementById("preview-room-assets");
-    const previewMovements = document.getElementById("preview-movements");
+            // Download buttons
+            const downloadInventory = document.getElementById("download-inventory");
+            const downloadRoomAssets = document.getElementById("download-room-assets");
+            const downloadMovements = document.getElementById("download-movements");
 
-    // Download buttons
-    const downloadInventory = document.getElementById("download-inventory");
-    const downloadRoomAssets = document.getElementById("download-room-assets");
-    const downloadMovements = document.getElementById("download-movements");
+            // Event listeners to call functions
+            previewInventory.addEventListener("click", () => fetchAndPreviewReport("inventory-complete"));
+            previewRoomAssets.addEventListener("click", () => fetchAndPreviewReport("assets-by-room"));
+            previewMovements.addEventListener("click", () => fetchAndPreviewReportMovimentRange("movements-by-date-range"));
 
-    // Event listeners to call functions
-    previewInventory.addEventListener("click", () => fetchAndPreviewReport("inventory-complete"));
-    previewRoomAssets.addEventListener("click", () => fetchAndPreviewReport("assets-by-room"));
-    previewMovements.addEventListener("click", () => fetchAndPreviewReport("movements"));
+            downloadInventory.addEventListener("click", () => {
+                const format = document.getElementById("format-inventory").value;
+                fetchAndDownloadReport("inventory-complete", format);
+            });
 
-    downloadInventory.addEventListener("click", () => {
-        const format = document.getElementById("format-inventory").value;
-        fetchAndDownloadReport("inventory-complete", format);
-    });
+            downloadRoomAssets.addEventListener("click", () => {
+                const format = document.getElementById("format-room-assets").value;
+                fetchAndDownloadReport("assets-by-room", format);
+            });
 
-    downloadRoomAssets.addEventListener("click", () => {
-        const format = document.getElementById("format-room-assets").value;
-        fetchAndDownloadReport("assets-by-room", format);
-    });
+            downloadMovements.addEventListener("click", () => {
+                const format = document.getElementById("format-movements").value;
+                fetchAndDownloadReportMovimentRange("movements-by-date-range", format);
+            });
 
-    downloadMovements.addEventListener("click", () => {
-        const format = document.getElementById("format-movements").value;
-        fetchAndDownloadReport("movements", format);
-    });
+            // Function to fetch and preview report
+            async function fetchAndPreviewReport(reportType) {
+                try {
+                    const response = await fetch(`http://${ip}:4242/api/objects/report/${reportType}`);
+                    const data = await response.json();
 
-    // Function to fetch and preview report
-    async function fetchAndPreviewReport(reportType) {
-        try {
-            const response = await fetch(`http://${ip}:4242/api/objects/report/${reportType}`);
-            const data = await response.json();
-            
-            if (response.ok) {
-                console.log(data);
-                previewReport(reportType, data);
-            } else {
-                console.error('Error fetching report:', data.message);
+                    if (response.ok) {
+                        console.log(data);
+                        previewReport(reportType, data);
+                    } else {
+                        console.error('Error fetching report:', data.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
             }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
 
-    // Function to preview report
-    function previewReport(reportType, data) {
-        const modal = document.getElementById('previewModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalContent = document.getElementById('modalContent');
-        
-        let content = '';
+            async function fetchAndPreviewReportMovimentRange(reportType) {
+                try {
+                    startDate = document.getElementById("start-date").value;
+                    endDate = document.getElementById("end-date").value;
+                    // const { startDate, endDate } = req.body;
+                    const response = await fetch(`http://${ip}:4242/api/objects/report/${reportType}?startDate=${startDate}&endDate=${endDate}`);
 
-        switch (reportType) {
-            case "inventory-complete":
-                content = generateInventoryReport(data);
-                break;
-            case "assets-by-room":
-                content = generateRoomAssetsReport(data);
-                break;
-            case "movements":
-                content = generateMovementsReport(data);
-                break;
-        }
+                    const data = await response.json();
 
-        modal.style.display = 'flex';
-        modalTitle.textContent = 'Report Preview';
-        modalContent.innerHTML = content;
-    }
-
-    // Function to fetch and download report
-    async function fetchAndDownloadReport(reportType, format) {
-        try {
-            const response = await fetch(`http://${ip}:4242/api/objects/report/${reportType}`);
-            const data = await response.json();
-
-            if (response.ok) {
-                downloadReport(data, reportType, format);
-            } else {
-                console.error('Error fetching report:', data.message);
+                    if (response.ok) {
+                        console.log(data);
+                        previewReport(reportType, data);
+                    } else {
+                        console.error('Error fetching report:', data.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
             }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
+            // Function to preview report
+            function previewReport(reportType, data) {
+                const modal = document.getElementById('previewModal');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalContent = document.getElementById('modalContent');
 
-    // Function to download report
-    function downloadReport(data, reportType, format) {
-        const dataString = JSON.stringify(data);
+                let content = '';
 
-        // Trigger download based on format
-        if (format === 'pdf') {
-                   
-            generatePDF(data, reportType);
-        } else if (format === 'csv') {
-            generateCSV(dataString, reportType);
-        } else if (format === 'zip') {
-            generateZIP(dataString, reportType);
-        }
-    }
+                switch (reportType) {
+                    case "inventory-complete":
+                        content = generateInventoryReport(data);
+                        break;
+                    case "assets-by-room":
+                        content = generateRoomAssetsReport(data);
+                        break;
+                    case "movements-by-date-range":
+                        content = generateMovementsReport(data);
+                        break;
+                }
 
-   // Function to generate inventory report content
-    function generateInventoryReport(data) {
-        return `
+                modal.style.display = 'flex';
+                modalTitle.textContent = 'Report Preview';
+                modalContent.innerHTML = content;
+            }
+
+            // Function to fetch and download report
+            async function fetchAndDownloadReport(reportType, format) {
+                try {
+                    const response = await fetch(`http://${ip}:4242/api/objects/report/${reportType}`);
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        downloadReport(data, reportType, format);
+                    } else {
+                        console.error('Error fetching report:', data.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+
+            async function fetchAndDownloadReportMovimentRange(reportType, format) {
+                try {
+                    startDate = document.getElementById("start-date").value;
+                    endDate = document.getElementById("end-date").value;
+                    // const { startDate, endDate } = req.body;
+                    const response = await fetch(`http://${ip}:4242/api/objects/report/${reportType}?startDate=${startDate}&endDate=${endDate}`);
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        downloadReport(data, reportType, format);
+                    } else {
+                        console.error('Error fetching report:', data.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+
+
+                    
+            }
+
+            // Function to download report
+            function downloadReport(data, reportType, format) {
+                const dataString = JSON.stringify(data);
+
+
+
+                // Trigger download based on format
+                if (format === 'pdf') {
+
+                    generatePDF(data, reportType);
+                } else if (format === 'csv') {
+                    generateCSV(dataString, reportType);
+                } else if (format === 'zip') {
+                    generateZIP(dataString, reportType);
+                }
+            }
+
+            // Function to generate inventory report content
+            function generateInventoryReport(data) {
+                return `
             <h3>Inventory Report</h3>
             <table>
                 <tr>
@@ -513,40 +582,40 @@
                 `).join('')}
             </table>
         `;
-    }
+            }
 
-    // Function to generate room assets report content
-  // Function to generate room assets report content
-function generateRoomAssetsReport(data) {
-    let content = '<h3>Assets by Room</h3>';
-    
-    // Check if data is an array or an object
-    if (Array.isArray(data)) {
-        content += data.map(room => `
+            // Function to generate room assets report content
+            // Function to generate room assets report content
+            function generateRoomAssetsReport(data) {
+                let content = '<h3>Assets by Room</h3>';
+
+                // Check if data is an array or an object
+                if (Array.isArray(data)) {
+                    content += data.map(room => `
             <h4>${room.room}</h4>
-            <ul>
+            <ul> 
                 ${room.assets.map(asset => `<li>${asset}</li>`).join('')}
             </ul>
         `).join('');
-    } else {
-        // If data is an object, iterate over its properties
-        for (const [room, assets] of Object.entries(data)) {
-            content += `
+                } else {
+                    // If data is an object, iterate over its properties
+                    for (const [room, assets] of Object.entries(data)) {
+                        content += `
                 <h4>${room}</h4>
                 <ul>
                     ${assets.map(asset => `<li>${asset.name || asset}</li>`).join('')}
                 </ul>
             `;
-        }
-    }
+                    }
+                }
 
-    return content;
-}
+                return content;
+            }
 
 
-    // Function to generate movements report content
-    function generateMovementsReport(data) {
-        return `
+            // Function to generate movements report content
+            function generateMovementsReport(data) {
+                return `
             <h3>Movements Report</h3>
             <table>
                 <tr>
@@ -558,134 +627,245 @@ function generateRoomAssetsReport(data) {
                 ${data.map(movement => `
                     <tr>
                         <td>${movement.asset}</td>
-                        <td>${movement.from}</td>
-                        <td>${movement.to}</td>
-                        <td>${movement.date}</td>
+                        <td>${movement.currentLocation}</td>
+                        <td>${movement.lastLocation}</td>
+                        
+                        <td>${movement.timeStamp}</td>
                     </tr>
                 `).join('')}
             </table>
         `;
-    }
-        // Function to generate PDF (placeholder)
-        // Function to generate PDF
-        function generatePDF(data, reportType) {
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF();
+            }
 
-    // Set title and subtitle based on report type
-    let title = '';
-    let subtitle = '';
-    let description = '';
 
-    switch(reportType) {
-        case "inventory-complete":
-            title = 'Inventory Report';
-            subtitle = 'Overview of Current Inventory';
-            description = 'This report provides a detailed overview of all inventory items, including their categories and locations.';
-            // Call the table generation method for the content
-            generateInventoryPDFTable(pdf, data);
-            break;
-        case "room-assets":
-            title = 'Room Assets Report';
-            subtitle = 'Assets by Room';
-            description = 'This report lists the assets allocated to each room in the facility.';
-            // Call the appropriate method for the room assets
-            generateRoomAssetsPDFContent(pdf, data);
-            break;
-        case "movements":
-            title = 'Asset Movements Report';
-            subtitle = 'History of Asset Movements';
-            description = 'This report outlines the movements of assets within the facility over a specified period.';
-            generateMovementsPDFTable(pdf, data);
-            break;
-    }
+            // Function to generate PDF (placeholder)
+            // Function to generate PDF
 
-    // Add title and subtitle
-    pdf.setFontSize(22);
-    pdf.text(title, 14, 20);
-    pdf.setFontSize(16);
-    pdf.text(subtitle, 14, 30);
-    pdf.setFontSize(12);
-    pdf.text(description, 14, 40);
+            function generatePDF(data, reportType) {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF();
 
-    // Save the PDF
-    pdf.save(`${reportType}.pdf`);
-}
+                let title = '', subtitle = '', description = '';
 
+                // Define titles and descriptions based on the report type
+                switch (reportType) {
+                    case "inventory-complete":
+                        title = 'Relatório de Inventário';
+                        subtitle = 'Visão Geral do Inventário Atual';
+                        description = 'Este relatório fornece uma visão detalhada de todos os itens do inventário.';
+                        break;
+                    case "assets-by-room":
+                        title = 'Relatório de Ativos por Sala';
+                        subtitle = 'Ativos por Sala';
+                        description = 'Este relatório lista os ativos alocados em cada sala da instalação.';
+                        break;
+                    case "movements-by-date-range":
+                        title = 'Relatório de Movimentações de Ativos';
+                        subtitle = 'Histórico de Movimentações de Ativos';
+                        description = 'Este relatório descreve as movimentações dos ativos dentro da instalação durante um período específico.';
+                        break;
+                }
+
+                // Load logo asynchronously
+                const logo = new Image();
+                logo.src = '../img/logo.png'; // Adjust path to your project structure
+
+                logo.onload = function () {
+                    // Header function
+                    const header = () => {
+                        pdf.addImage(logo, 'PNG', 14, 10, 40, 20);
+                        pdf.setFontSize(14);
+                        pdf.setTextColor(60, 60, 60); // Dark Gray
+                        pdf.text("Smart Inventory - Sistema de Gestão de Inventário", 60, 20);
+                        pdf.line(14, 32, 195, 32); // Header line
+                    };
+
+                    // Footer function
+                    const footer = (pageNum, totalPages) => {
+                        pdf.setFontSize(10);
+                        pdf.setTextColor(120, 120, 120); // Medium Gray
+                        pdf.text(`Gerado em ${new Date().toLocaleDateString()}`, 14, pdf.internal.pageSize.height - 10);
+                        pdf.text(`Página ${pageNum} de ${totalPages}`, pdf.internal.pageSize.width - 40, pdf.internal.pageSize.height - 10);
+                    };
+
+                    // Apply header and footer hooks
+                    pdf.autoTableSetDefaults({
+                        headStyles: { fillColor: [34, 139, 34], textColor: 255 }, // Green Header
+                        bodyStyles: { textColor: 0 },
+                        alternateRowStyles: { fillColor: [245, 245, 245] }, // Light Gray Rows
+                        margin: { top: 40, bottom: 20 },
+                        didDrawPage: (data) => {
+                            header();
+                            footer(data.pageNumber, pdf.internal.getNumberOfPages());
+                        },
+                    });
+
+                    // Title and description
+                    pdf.setFontSize(20);
+                    pdf.setTextColor(34, 139, 34); // Green
+                    pdf.text(title, pdf.internal.pageSize.width / 2, 50, { align: "center" });
+                    pdf.setFontSize(14);
+                    pdf.setTextColor(100, 100, 100); // Medium Gray
+                    pdf.text(subtitle, pdf.internal.pageSize.width / 2, 60, { align: "center" });
+                    pdf.setFontSize(12);
+                    pdf.setTextColor(80, 80, 80); // Darker Gray
+                    pdf.text(description, pdf.internal.pageSize.width / 2, 70, { align: "center" });
+
+                    // Generate table content
+                    switch (reportType) {
+                        case "inventory-complete":
+                            generateInventoryPDFTable(pdf, data);
+                            break;
+                        case "assets-by-room":
+                            generateRoomAssetsPDFContent(pdf, data);
+                            break;
+                        case "movements-by-date-range":
+                            generateMovementsPDFTable(pdf, data);
+                            break;
+                    }
+
+                    // Save PDF
+                    pdf.save(`${reportType}.pdf`);
+                };
+            
+            }
+
+            // Example for generating "Assets by Room" table
+            function generateRoomAssetsPDFContent(pdf, data) {
+                if (Array.isArray(data)) {
+                    data.forEach(room => {
+                        pdf.setFontSize(14);
+                        pdf.setTextColor(34, 139, 34); // Green for room names
+                        const roomName = room.room || "Sala Desconhecida"; // Ensure room name exists
+                        pdf.text(roomName, 10, pdf.autoTable.previous?.finalY + 10 || 20);
+
+                        pdf.autoTable({
+                            body: room.assets.map(asset => [asset]),
+                            startY: pdf.autoTable.previous?.finalY + 20 || 60,
+                            head: [['Ativo']],
+                            styles: { fillColor: [245, 245, 245] }, // Light Gray Row Styles
+                            headStyles: { fillColor: [34, 139, 34] }, // Green Header
+                            theme: 'striped',
+                        });
+                    });
+                } else {
+                    for (const [room, assets] of Object.entries(data)) {
+                        pdf.setFontSize(14);
+                        pdf.setTextColor(34, 139, 34); // Green for room names
+                        pdf.text(room, 10, pdf.autoTable.previous?.finalY + 10 || 80);
+
+                        pdf.autoTable({
+                            body: assets.map(asset => [asset.name || asset]),
+                            startY: pdf.autoTable.previous?.finalY + 20 || 90,
+                            head: [['Ativo']],
+                            styles: { fillColor: [245, 245, 245] },
+                            headStyles: { fillColor: [34, 139, 34] }, // Green Header
+                            theme: 'striped',
+                        });
+                    }
+                }
+            }
+
+        // Function to generate the Inventory PDF table with modern design
 function generateInventoryPDFTable(pdf, data) {
-    // Assuming data is an array of objects
     pdf.autoTable({
-        head: [['ID', 'Name', 'Category', 'Location']], // Adjust headers as necessary
-        body: data.map(item => [item.id, item.name, item.category, item.location]),
-        startY: 50 // Adjust starting position based on the previous text
-    });
-}
-// Function to generate inventory PDF table content
-// Function to generate inventory PDF table
-// Function to generate inventory PDF table
-
-
-
-// Function to generate room assets PDF content
-function generateRoomAssetsPDFContent(data) {
-    let content = '';
-
-    data.forEach(room => {
-        content += `Room: ${room.room}\n`;
-        room.assets.forEach(asset => {
-            content += ` - ${asset}\n`;
-        });
-        content += '\n'; // Adding space between rooms
-    });
-
-    return content;
-}
-
-// Function to generate movements PDF table content
-function generateMovementsPDFTable(data) {
-    const pdf = new jsPDF();
-    pdf.autoTable({
-        head: [['Asset', 'From', 'To', 'Date']],
-        body: data.map(movement => [movement.asset, movement.from, movement.to, movement.date]),
-        theme: 'grid',
-        styles: {
-            cellPadding: 5,
-            fontSize: 10,
+        head: [['ID', 'Nome', 'Categoria', 'Localização']],
+        body: data.map(item => [
+            item.id,
+            item.name,
+            item.category.description,
+            item.location.description,
+        ]),
+        theme: 'striped', // Striped rows for better readability
+        headStyles: {
+            fillColor: [50, 205, 50], // Bright green gradient for headers
+            textColor: 255, // White text
+            fontSize: 12, // Header font size
+            fontStyle: 'bold', // Bold header text
+            halign: 'center', // Center-align header text
+        },
+        bodyStyles: {
+            textColor: 0, // Black text for rows
+            fontSize: 11, // Standard font size for rows
+            halign: 'left', // Align content to the left in cells
+        },
+        alternateRowStyles: {
+            fillColor: [245, 245, 245], // Light gray for alternating rows
         },
         margin: { top: 50 },
+        styles: {
+            cellPadding: 5, // Padding inside cells
+            overflow: 'linebreak', // Ensure content is wrapped within cell boundaries
+            minCellWidth: 20, // Set minimum width for cells
+        },
+        startY: pdf.autoTable.previous?.finalY + 20 || 80, // Dynamic position
+    });
+}
+
+// Function to generate the Movements PDF table content with a more attractive style
+function generateMovementsPDFTable(pdf, data) {
+    pdf.autoTable({
+        head: [['Ativo', 'De', 'Para', 'Data']],
+        body: data.map(movement => [
+            movement.asset,
+            movement.from,
+            movement.to,
+            movement.date,
+        ]),
+        theme: 'striped', // Striped rows for better readability
+        headStyles: {
+            fillColor: [50, 205, 50], // Bright green gradient for headers
+            textColor: 255, // White text
+            fontSize: 12, // Header font size
+            fontStyle: 'bold', // Bold header text
+            halign: 'center', // Center-align header text
+        },
+        bodyStyles: {
+            textColor: 0, // Black text for rows
+            fontSize: 11, // Standard font size for rows
+            halign: 'left', // Align content to the left in cells
+        },
+        alternateRowStyles: {
+            fillColor: [245, 245, 245], // Light gray for alternating rows
+        },
+        margin: { top: 50 },
+        styles: {
+            cellPadding: 5, // Padding inside cells
+            overflow: 'linebreak', // Ensure content is wrapped within cell boundaries
+            minCellWidth: 20, // Set minimum width for cells
+        },
+        startY: pdf.autoTable.previous?.finalY + 20 || 60, // Dynamic position
     });
 
     return pdf.output('datauristring');
 }
 
-    
-        // Function to generate CSV
-        function generateCSV(data, reportType) {
-            const csvContent = "data:text/csv;charset=utf-8," + encodeURIComponent(data);
-            const link = document.createElement('a');
-            link.setAttribute('href', csvContent);
-            link.setAttribute('download', `${reportType}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    
-        // Function to generate ZIP (placeholder)
-        function generateZIP(data, reportType) {
-            // Implement ZIP generation logic here (e.g., using JSZip library)
-        }
-    
-        // Close modal
-        document.getElementById("closeModal").addEventListener("click", () => {
-            document.getElementById('previewModal').style.display = 'none';
+            // Function to generate CSV
+            function generateCSV(data, reportType) {
+                const csvContent = "data:text/csv;charset=utf-8," + encodeURIComponent(data);
+                const link = document.createElement('a');
+                link.setAttribute('href', csvContent);
+                link.setAttribute('download', `${reportType}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+
+            // Function to generate ZIP (placeholder)
+            function generateZIP(data, reportType) {
+                // Implement ZIP generation logic here (e.g., using JSZip library)
+            }
+
+            // Close modal
+            document.getElementById("closeModal").addEventListener("click", () => {
+                document.getElementById('previewModal').style.display = 'none';
+            });
         });
-    });
-    
 
-       
 
-</script>
+
+
+    </script>
 </body>
 
 </html>
-
