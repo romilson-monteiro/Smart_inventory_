@@ -6,7 +6,7 @@ const projeto2_db = new Sequelize({
   port: 3306,
   username: "admin",
   password: "admin123",
-  database: "projeto2",
+  database: "TexPACT",
   dialect: "mysql", 
 });
 
